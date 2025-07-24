@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NL80211 Vendor Log Report</title>
+    
+<style>
+    :root {
+        --bg-color: #1a1b26;
+        --fg-color: #a9b1d6;
+        --card-bg: #24283b;
+        --border-color: #414868;
+        --header-bg: #1f2335;
+        --accent-color-1: #bb9af7;
+        --accent-color-2: #7aa2f7;
+        --label-color: #c0caf5;
+        --value-color: #e0af68;
+        --hex-color: #9ece6a;
+        --timestamp-color: #565f89;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--fg-color);
+        line-height: 1.6;
+        margin: 0;
+        padding: 2em;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    h1 {
+        color: var(--accent-color-1);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 10px;
+        font-weight: 500;
+    }
+    .event-list {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        margin-top: 2em;
+    }
+    .event-item {
+        border-bottom: 1px solid var(--border-color);
+    }
+    .event-item:last-child {
+        border-bottom: none;
+    }
+    .event-header {
+        padding: 12px 18px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.2s ease;
+    }
+    .event-header:hover {
+        background-color: rgba(187, 154, 247, 0.1);
+    }
+    .event-title {
+        font-size: 1.1em;
+        font-weight: 500;
+        color: var(--label-color);
+    }
+    .event-timestamp {
+        font-family: 'SF Mono', 'Consolas', monospace;
+        font-size: 0.9em;
+        color: var(--timestamp-color);
+    }
+    .event-body {
+        display: none;
+        padding: 0 18px 18px 18px;
+        border-top: 1px dashed var(--border-color);
+    }
+    .event-header.active + .event-body {
+        display: block;
+    }
+    .event-header::after {
+        content: '+';
+        font-size: 1.8em;
+        color: var(--accent-color-2);
+        transition: transform 0.3s ease;
+    }
+    .event-header.active::after {
+        transform: rotate(45deg);
+    }
+    .attr-item {
+        font-family: 'SF Mono', 'Consolas', monospace;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 8px 16px;
+        align-items: start;
+        padding: 4px 0;
+        border-left: 2px solid transparent;
+        padding-left: 10px;
+    }
+    .label { color: var(--accent-color-2); white-space: nowrap; }
+    .value { color: var(--value-color); }
+    .hex { color: var(--hex-color); font-size: 0.9em; }
+    .nested-container {
+        grid-column: 1 / -1;
+        border-left: 2px solid var(--border-color);
+        padding-left: 15px;
+        margin-top: 5px;
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>NL80211 Vendor Log Report</h1>
+        <div id="event-list-container" class="event-list">
+            <div class="event-item">
+    <div class="event-header">
+        <span class="event-title">QCA_NL80211_VENDOR_SUBCMD_WLAN_MAC_INFO (subcmd 165)</span>
+        <span class="event-timestamp">2025-07-02 08:28:28</span>
+    </div>
+    
+    <div class="event-body">
+        <div class="nested-container"><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_MAC_INFO (NESTED):</div><div><div class="nested-container"><div class="attr-item"><div class="label">MAC_ID_CONTAINER_0 (NESTED):</div><div><div class="nested-container"><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_MAC_INFO_MAC_ID:</div><div><span class="value">0</span> <span class="hex">(00 00 00 00)</span></div></div><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_MAC_INFO_BAND:</div><div><span class="value">2</span> <span class="hex">(02 00 00 00)</span></div></div><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_MAC_IFACE_INFO (NESTED):</div><div><div class="nested-container"><div class="attr-item"><div class="label">INTERFACE_CONTAINER_0 (NESTED):</div><div><div class="nested-container"><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_MAC_IFACE_INFO_IFINDEX:</div><div><span class="value">23</span> <span class="hex">(17 00 00 00)</span></div></div><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_MAC_IFACE_INFO_FREQ:</div><div><span class="value">5220</span> <span class="hex">(64 14 00 00)</span></div></div></div></div></div></div></div></div></div></div></div><div class="attr-item"><div class="label">MAC_ID_CONTAINER_1 (NESTED):</div><div><div class="nested-container"><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_MAC_INFO_MAC_ID:</div><div><span class="value">1</span> <span class="hex">(01 00 00 00)</span></div></div><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_MAC_INFO_BAND:</div><div><span class="value">1</span> <span class="hex">(01 00 00 00)</span></div></div><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_MAC_IFACE_INFO (NESTED):</div><div><div class="nested-container"><div class="attr-item"><div class="label">INTERFACE_CONTAINER_0 (NESTED):</div><div><div class="nested-container"><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_MAC_IFACE_INFO_IFINDEX:</div><div><span class="value">17</span> <span class="hex">(11 00 00 00)</span></div></div><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_MAC_IFACE_INFO_FREQ:</div><div><span class="value">2412</span> <span class="hex">(6c 09 00 00)</span></div></div></div></div></div><div class="attr-item"><div class="label">INTERFACE_CONTAINER_1 (NESTED):</div><div><div class="nested-container"><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_MAC_IFACE_INFO_IFINDEX:</div><div><span class="value">22</span> <span class="hex">(16 00 00 00)</span></div></div><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_MAC_IFACE_INFO_FREQ:</div><div><span class="value">2437</span> <span class="hex">(85 09 00 00)</span></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
+    </div>
+    </div>
+<div class="event-item">
+    <div class="event-header">
+        <span class="event-title">QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_START_AP (subcmd 65025)</span>
+        <span class="event-timestamp">2025-07-02 08:29:58</span>
+    </div>
+    
+    <div class="event-body">
+        <div class="nested-container"><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_CONTAINER (NESTED):</div><div><div class="nested-container"><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_FREQ:</div><div><span class="value">2412</span> <span class="hex">(6c 09 00 00)</span></div></div><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_BW:</div><div><span class="value">1</span> <span class="hex">(01 00 00 00)</span></div></div><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_SSID:</div><div><span class="value">"AndroidAP_8201"</span> <span class="hex">(41 6e 64 72 6f 69 64 41 50 5f 38 32 30 31)</span></div></div><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_FLAGS:</div><div><span class="value">3</span> <span class="hex">(03 00 00 00)</span></div></div><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_RESULT:</div><div><span class="value">0</span> <span class="hex">(00 00 00 00)</span></div></div><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_IFNAME:</div><div><span class="value">"wlan2"</span> <span class="hex">(77 6c 61 6e 32 00)</span></div></div></div></div></div></div>
+    </div>
+    </div>
+<div class="event-item">
+    <div class="event-header">
+        <span class="event-title">QCA_NL80211_VENDOR_SUBCMD_SCAN_DONE (subcmd 107)</span>
+        <span class="event-timestamp">2025-07-02 08:53:44</span>
+    </div>
+    
+    <div class="event-body">
+        <div class="nested-container"><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_SCAN_SSIDS (NESTED):</div><div><div class="nested-container"></div></div></div><div class="attr-item"><div class="label">QCA_WLAN_VENDOR_ATTR_SCAN_FREQUENCIES (NESTED):</div><div><div class="nested-container"><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">2412</span> <span class="hex">(6c 09 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">2417</span> <span class="hex">(71 09 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">2422</span> <span class="hex">(76 09 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">2427</span> <span class="hex">(7b 09 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">2432</span> <span class="hex">(80 09 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">2437</span> <span class="hex">(85 09 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">2442</span> <span class="hex">(8a 09 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">2447</span> <span class="hex">(8f 09 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">2452</span> <span class="hex">(94 09 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">2457</span> <span class="hex">(99 09 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">2462</span> <span class="hex">(9e 09 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5180</span> <span class="hex">(3c 14 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5200</span> <span class="hex">(50 14 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5220</span> <span class="hex">(64 14 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5240</span> <span class="hex">(78 14 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5260</span> <span class="hex">(8c 14 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5280</span> <span class="hex">(a0 14 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5300</span> <span class="hex">(b4 14 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5320</span> <span class="hex">(c8 14 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5500</span> <span class="hex">(7c 15 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5520</span> <span class="hex">(90 15 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5540</span> <span class="hex">(a4 15 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5560</span> <span class="hex">(b8 15 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5580</span> <span class="hex">(cc 15 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5600</span> <span class="hex">(e0 15 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5620</span> <span class="hex">(f4 15 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5640</span> <span class="hex">(08 16 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5660</span> <span class="hex">(1c 16 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5680</span> <span class="hex">(30 16 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5700</span> <span class="hex">(44 16 00 00)</span></div></div><div class="attr-item"><div class="label">Frequency:</div><div><span class="value">5720</span> <span class="hex">(58 16 00 00)</span></div></div></div></div></div></div>
+    </div>
+    </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const headers = document.querySelectorAll('.event-header');
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    header.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

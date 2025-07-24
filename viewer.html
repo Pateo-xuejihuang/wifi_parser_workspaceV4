@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NL80211 Vendor Log Viewer</title>
+    <style>
+        :root {
+            --bg-color: #1e1e1e;
+            --text-color: #d4d4d4;
+            --header-bg: #252526;
+            --border-color: #3c3c3c;
+            --accent-color: #007acc;
+            --label-color: #9cdcfe;
+            --value-color: #ce9178;
+            --hex-color: #6a9955;
+        }
+        body {
+            font-family: 'Consolas', 'Menlo', 'Courier New', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: var(--accent-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        #event-list-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .event-item {
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .event-header {
+            background-color: var(--header-bg);
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+        .event-header:hover {
+            background-color: #333334;
+        }
+        .event-title {
+            font-weight: bold;
+            color: var(--text-color);
+        }
+        .event-timestamp {
+            font-size: 0.9em;
+            color: #888;
+        }
+        .event-body {
+            display: none;
+            padding: 15px;
+            border-top: 1px solid var(--border-color);
+            background-color: #1a1a1a;
+        }
+        .event-header.active + .event-body {
+            display: block;
+        }
+        .event-header.active::after {
+            transform: rotate(90deg);
+        }
+        .event-header::after {
+            content: '›';
+            font-size: 1.5em;
+            transition: transform 0.2s;
+        }
+        .attr-item {
+            white-space: pre-wrap;
+        }
+        .label { color: var(--label-color); }
+        .value { color: var(--value-color); font-weight: bold; }
+        .hex { color: var(--hex-color); }
+    </style>
+</head>
+<body>
+    <h1>NL80211 Vendor Log Viewer</h1>
+    <div id="event-list-container">
+        <p>正在加载日志数据...</p>
+    </div>
+
+    <!-- 1. 首先加载我们的显示词典 -->
+    <script src="display_definitions.js"></script>
+
+    <!-- 2. 然后运行主渲染逻辑 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('event-list-container');
+
+            async function loadAndRender() {
+                try {
+                    const response = await fetch('parsed.json');
+                    if (!response.ok) {
+                        throw new Error(`无法加载 parsed.json: ${response.statusText}`);
+                    }
+                    const events = await response.json();
+                    
+                    container.innerHTML = ''; // 清空“正在加载”提示
+                    if (events.length === 0) {
+                        container.textContent = '未在 parsed.json 中找到任何事件。';
+                        return;
+                    }
+
+                    events.forEach(event => {
+                        const eventElement = createEventElement(event);
+                        container.appendChild(eventElement);
+                    });
+
+                } catch (error) {
+                    container.innerHTML = `加载或解析数据时出错: <br>${error}`;
+                    console.error(error);
+                }
+            }
+
+            function createEventElement(event) {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'event-item';
+
+                const headerDiv = document.createElement('div');
+                headerDiv.className = 'event-header';
+
+                const subcmdMapping = DISPLAY_MAPPINGS[event.subcmd_name] || {};
+                const friendlyName = subcmdMapping.friendly_name || event.subcmd_name;
+
+                headerDiv.innerHTML = `
+                    <span class="event-title">${friendlyName} (subcmd ${event.subcmd})</span>
+                    <span class="event-timestamp">${event.data_timestamp}</span>
+                `;
+
+                const bodyDiv = document.createElement('div');
+                bodyDiv.className = 'event-body';
+                
+                const treeHtml = renderTree(event.tree, event.subcmd_name, 0);
+                bodyDiv.innerHTML = treeHtml;
+
+                headerDiv.addEventListener('click', () => {
+                    headerDiv.classList.toggle('active');
+                });
+
+                itemDiv.appendChild(headerDiv);
+                itemDiv.appendChild(bodyDiv);
+                return itemDiv;
+            }
+
+            function renderTree(nodes, subcmdName, depth) {
+                let html = '';
+                const indent = ' '.repeat(depth * 2);
+
+                nodes.forEach(node => {
+                    const subcmdMapping = DISPLAY_MAPPINGS[subcmdName] || {};
+                    const attrMapping = subcmdMapping.attributes ? (subcmdMapping.attributes[node.name] || {}) : {};
+                    
+                    const label = attrMapping.label || node.name;
+                    let value = node.value;
+
+                    if (attrMapping.values && node.value in attrMapping.values) {
+                        value = attrMapping.values[node.value];
+                    }
+
+                    html += `<div class="attr-item">${indent}`;
+                    
+                    if (node.children) {
+                        html += `<span class="label">${label} (NESTED):</span>`;
+                        html += renderTree(node.children, subcmdName, depth + 1);
+                    } else {
+                        let valueHtml = `<span class="value">${value}</span>`;
+                        if (typeof node.value === 'string' && node.value.includes(' ')) {
+                             valueHtml = `<span class="value">"${value}"</span>`;
+                        }
+                        
+                        html += `
+                            <span class="label">${label}:</span> ${valueHtml}
+                            <span class="hex">(${node.hex})</span>
+                        `;
+                    }
+
+                    html += '</div>';
+                });
+                return html;
+            }
+
+            loadAndRender();
+        });
+    </script>
+</body>
+</html>
