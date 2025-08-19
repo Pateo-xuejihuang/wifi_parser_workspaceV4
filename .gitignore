@@ -8,6 +8,7 @@
 !report_generator.py
 !README.md
 !examples/
+!examples/**
 
 # 忽略Python编译文件和缓存
 __pycache__/
