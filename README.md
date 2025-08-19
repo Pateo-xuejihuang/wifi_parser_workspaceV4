@@ -14,7 +14,7 @@
   - 自动识别和解析vendor特定命令
 - **使用方式**: 
   ```bash
-  python log_parser.py wifidebug --output-txt parsed.txt --output-json parsed.json
+  python log_parser.py examples/wifidebug --output-txt parsed.txt --output-json parsed.json
   ```
 - **输出**: 生成指定的`parsed.json`和`parsed.txt`文件
 
@@ -58,7 +58,7 @@
 
 1. **解析日志**:
    ```bash
-   python log_parser.py wifidebug --output-txt parsed.txt --output-json parsed.json
+   python log_parser.py examples/wifidebug --output-txt parsed.txt --output-json parsed.json
    ```
 
 2. **生成报告**:
