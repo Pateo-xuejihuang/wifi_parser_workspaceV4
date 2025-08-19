@@ -14,9 +14,9 @@
   - 自动识别和解析vendor特定命令
 - **使用方式**: 
   ```bash
-  python log_parser.py <日志文件路径>
+  python log_parser.py wifidebug --output-txt parsed.txt --output-json parsed.json
   ```
-- **输出**: 生成`parsed.json`和`parsed.txt`文件
+- **输出**: 生成指定的`parsed.json`和`parsed.txt`文件
 
 ### 🎯 `definitions.py`
 **数据定义库** - WiFi协议和vendor命令定义
@@ -39,7 +39,7 @@
   - 支持自定义计算函数
 - **使用方式**:
   ```bash
-  python report_generator.py parsed.json
+  python report_generator.py
   ```
 - **输出**: 生成`report.html`文件
 
@@ -58,12 +58,12 @@
 
 1. **解析日志**:
    ```bash
-   python log_parser.py wifidebug.txt
+   python log_parser.py wifidebug --output-txt parsed.txt --output-json parsed.json
    ```
 
 2. **生成报告**:
    ```bash
-   python report_generator.py parsed.json
+   python report_generator.py
    ```
 
 3. **查看结果**: 用浏览器打开`report.html`
