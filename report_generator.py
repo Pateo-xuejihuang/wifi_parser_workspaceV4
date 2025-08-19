@@ -140,6 +140,16 @@ CSS_STYLES = """
     .attr-row::before { content: ''; position: absolute; left: -20px; top: 1.1em; border-top: 1px solid #ced4da; width: 15px; }
     .label { color: var(--label-color); margin-right: 1ch; }
     .value { color: var(--value-color); font-weight: 500; }
+    .preformatted-text {
+        white-space: pre-wrap;   /* 关键属性：保留空白和换行，并自动换行 */
+        font-family: var(--font-mono); /* 使用等宽字体，让对齐更美观 */
+        background-color: #f1f3f5;   /* 给它一个浅灰色背景，与普通值区分开 */
+        padding: 0.8em;              /* 增加一些内边距 */
+        border-radius: 5px;          /* 圆角边框 */
+        margin-top: 5px;             /* 与上一行保持一点距离 */
+        display: block;              /* 确保它作为一个块级元素显示 */
+        line-height: 1.5;            /* 设置合适的行高 */
+    }
 </style>
 """
 
@@ -320,65 +330,71 @@ def get_display_mapping(subcmd_name: str, display_defs: Dict) -> Dict:
 
 def render_tree_to_html(nodes: List[Dict], subcmd_name: str, display_defs: Dict) -> str:
     """
-    【最终修正版】渲染属性树到HTML。
-    采用两段式渲染，确保已定义的属性按顺序显示，未定义的属性也能回退显示。
+    【HTML换行修正版】渲染属性树到HTML。
+    能够识别 'format': 'preformatted' 标记，并使用 <pre> 标签渲染。
     """
     if not nodes: return ""
     html = '<div class="tree-container">'
     
     data_map = {node['name']: node for node in nodes}
     attr_defs = get_display_mapping(subcmd_name, display_defs).get("attributes", {})
-    rendered_keys = set()  # 用来记录哪些key已经被第一阶段渲染
+    rendered_keys = set()
 
     # --- 第一段: 优先渲染在 display_definitions.js 中定义的属性 ---
     for attr_name, attr_def in attr_defs.items():
         node = data_map.get(attr_name)
         
-        # 如果是计算出的虚拟节点，它在原始数据中不存在，但预处理后已加入data_map
         if not node:
-            # 检查data_map中是否有预处理时加入的计算值
             if attr_name in data_map and isinstance(data_map[attr_name], dict) and 'value' in data_map[attr_name]:
                  node = data_map[attr_name]
             else:
-                 continue # 如果节点不存在，则跳过
+                 continue
 
         if attr_def.get("display") == "none":
-            rendered_keys.add(attr_name) # 标记为已处理，但什么也不显示
-            continue
+            rendered_keys.add(attr_name); continue
 
-        label = attr_def.get("label", attr_name) # 使用定义的label
+        label = attr_def.get("label", attr_name)
         
-        # (这部分是通用的渲染逻辑)
         html += '<div class="attr-node"><div class="attr-row">'
         if "children" in node and node.get("children"):
+            # 【关键修改点 1】将node["children"]的渲染结果放到content里
             content = render_tree_to_html(node["children"], subcmd_name, display_defs)
             html += f'<span class="label">{label}:</span>{content}'
         else:
             value = node.get('value')
-            if "values" in attr_def and str(value) in attr_def["values"]:
-                mapped_value = attr_def["values"][str(value)]
-                value_str = f'{mapped_value} ({value})'
+            # 检查是否有 'format': 'preformatted' 标记
+            if node.get("format") == "preformatted":
+                # 如果有，使用 <pre> 标签和我们定义的CSS类
+                html += f'<span class="label">{label}:</span><pre class="preformatted-text">{value}</pre>'
             else:
-                value_str = f'"{value}"' if isinstance(value, str) and value != "empty" else str(value)
-            html += f'<span class="label">{label}:</span><span class="value">{value_str}</span>'
+                # 否则，使用原来的逻辑
+                if "values" in attr_def and str(value) in attr_def["values"]:
+                    mapped_value = attr_def["values"][str(value)]
+                    value_str = f'{mapped_value} ({value})'
+                else:
+                    value_str = f'"{value}"' if isinstance(value, str) and value != "empty" else str(value)
+                html += f'<span class="label">{label}:</span><span class="value">{value_str}</span>'
         html += '</div></div>'
         
-        rendered_keys.add(attr_name) # 标记为已渲染
+        rendered_keys.add(attr_name)
 
     # --- 第二段: 渲染任何未在定义文件中提及的、剩余的原始属性 ---
     for node in nodes:
         if node['name'] not in rendered_keys:
-            label = node['name'] # 使用原始名称作为label
+            label = node['name']
             
-            # (复用通用的渲染逻辑)
             html += '<div class="attr-node"><div class="attr-row">'
             if "children" in node and node.get("children"):
                 content = render_tree_to_html(node["children"], subcmd_name, display_defs)
                 html += f'<span class="label">{label}:</span>{content}'
             else:
                 value = node.get('value')
-                value_str = f'"{value}"' if isinstance(value, str) and value != "empty" else str(value)
-                html += f'<span class="label">{label}:</span><span class="value">{value_str}</span>'
+                # 【关键修改点 2】在这里也加入同样的检查
+                if node.get("format") == "preformatted":
+                    html += f'<span class="label">{label}:</span><pre class="preformatted-text">{value}</pre>'
+                else:
+                    value_str = f'"{value}"' if isinstance(value, str) and value != "empty" else str(value)
+                    html += f'<span class="label">{label}:</span><span class="value">{value_str}</span>'
             html += '</div></div>'
             
     html += '</div>'

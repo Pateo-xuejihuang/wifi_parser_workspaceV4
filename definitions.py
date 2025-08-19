@@ -80,15 +80,25 @@ VENDOR_SUBCMD_ENUMS = {
         "name": "QCA_NL80211_VENDOR_SUBCMD_SCAN_DONE",
         "initial_rule": "attrs",
         "attrs": {
-            # ... 所有属性都必须是字典格式 ...
+            0: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_INVALID_PARAM", "type": "u32" },
+            1: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_IE", "type": "hex" },
             2: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_FREQUENCIES", "type": "nested" },
             3: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_SSIDS", "type": "nested" },
+            4: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_SUPP_RATES", "type": "hex" },
+            5: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_TX_NO_CCK_RATE", "type": "u8" },
+            6: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_FLAGS", "type": "u8" },
             7: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_COOKIE", "type": "u64" },
             8: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_STATUS", "type": "u8" },
-            # ...
+            9: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_MAC", "type": "mac_address" },
+            10: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_MAC_MASK", "type": "mac_address" },
+            11: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_BSSID", "type": "mac_address" },
+            12: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_DWELL_TIME", "type": "u32" },
+            13: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_PRIORITY", "type": "u32" },
+            15: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_LINK_ID", "type": "u8" },
+            16: { "name": "QCA_WLAN_VENDOR_ATTR_SCAN_SKIP_CHANNEL_RECENCY_PERIOD", "type": "u32" },
         },
         "frequency_list_attrs": {
-            "*": { "name": "Frequency", "type": "u32" } # 明确指定频率是u32
+            "*": { "name": "Frequency", "type": "u32" }
         },
         "ssid_list_attrs": { 
             "*": { "name": "SSID", "type": "string" } 
@@ -305,6 +315,14 @@ VENDOR_SUBCMD_ENUMS = {
             11: { "name": "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_DISASSOC_TS", "type": "u64" }
         }
     },
+    
+    254: {
+        "name": "QCA_NL80211_VENDOR_SUBCMD_IDLE_SHUTDOWN",
+        "initial_rule": "attrs",
+        "attrs": {
+            1: { "name": "QCA_WLAN_VENDOR_ATTR_IDLE_SHUTDOWN_STATUS", "type": "u32" }
+        }
+    },
     65040: {
         "name": "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_DEL_VIF",
         "initial_rule": "attrs",
@@ -339,5 +357,45 @@ VENDOR_SUBCMD_ENUMS = {
             "*": "channel_entry_attrs"
         }
     }
-}
+},
+    65041: {
+        "name": "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_ASSOC_SUCC",
+        "initial_rule": "attrs",
+        "attrs": {
+            0: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_INVALID', 'type': 'u32'},
+            1: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_IFNAME', 'type': 'string'},
+            2: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_MAC_ADDR', 'type': 'mac_address'},
+            3: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_FREQ', 'type': 'u32'},
+            4: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_ID', 'type': 'u32'},
+            5: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_CAPS_FLAGS', 'type': 'u32'},
+            6: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_ASSOC_REQ_IES', 'type': 'assoc_req_ies'},
+        }
+    },
+    65042: {
+        "name": "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_ASSOC_FAIL",
+        "initial_rule": "attrs",
+        "attrs": {
+            0: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_INVALID', 'type': 'u32'},
+            1: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_IFNAME', 'type': 'string'},
+            2: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_MAC_ADDR', 'type': 'mac_address'},
+            3: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_REASON', 'type': 'u32'},
+            4: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_REQ_IES', 'type': 'assoc_req_ies'},
+        }
+    },
+    56:{
+        "name": "QCA_NL80211_VENDOR_SUBCMD_DFS_OFFLOAD_CAC_STARTED",
+        "initial_rule": "attrs",
+        "attrs": {
+            0: {'name': 'QCA_WLAN_VENDOR_ATTR_DFS_OFFLOAD_CAC_STARTED_INVALID', 'type': 'u32'},
+            38: {'name': 'NL80211_ATTR_WIPHY_FREQ', 'type': 'u32'}
+        }
+    },
+    57: {
+        "name": "QCA_NL80211_VENDOR_SUBCMD_DFS_OFFLOAD_CAC_FINISHED",
+        "initial_rule": "attrs",
+        "attrs": {
+            0: {'name': 'QCA_WLAN_VENDOR_ATTR_DFS_OFFLOAD_CAC_FINISHED_INVALID', 'type': 'u32'},
+            38: {'name': 'NL80211_ATTR_WIPHY_FREQ', 'type': 'u32'}
+        }
+    }
 }

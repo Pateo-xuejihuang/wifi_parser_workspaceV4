@@ -111,10 +111,19 @@ const DISPLAY_MAPPINGS = {
     "QCA_NL80211_VENDOR_SUBCMD_SCAN_DONE": {
         "friendly_name": "扫描完成事件",
         "attributes": {
-            "QCA_WLAN_VENDOR_ATTR_SCAN_SSIDS": { "label": "SSID 列表" },
+            "QCA_WLAN_VENDOR_ATTR_SCAN_INVALID_PARAM": { "label": "无效参数" },
+            "QCA_WLAN_VENDOR_ATTR_SCAN_IE": { "label": "扫描信息元素 (IE)" },
             "QCA_WLAN_VENDOR_ATTR_SCAN_FREQUENCIES": { "label": "扫描的信道列表" },
-            "Frequency": { "label": "扫描频率 (MHz)" },
-            "SSID": { "label": "SSID" },
+            "QCA_WLAN_VENDOR_ATTR_SCAN_SSIDS": { "label": "SSID 列表" },
+            "QCA_WLAN_VENDOR_ATTR_SCAN_SUPP_RATES": { "label": "支持的速率" },
+            "QCA_WLAN_VENDOR_ATTR_SCAN_TX_NO_CCK_RATE": { 
+                "label": "禁用CCK速率发送",
+                "values": {
+                    "0": "允许CCK速率",
+                    "1": "禁用CCK速率"
+                }
+            },
+            "QCA_WLAN_VENDOR_ATTR_SCAN_FLAGS": { "label": "扫描标志位" },
             "QCA_WLAN_VENDOR_ATTR_SCAN_COOKIE": { "label": "扫描 Cookie" },
             "QCA_WLAN_VENDOR_ATTR_SCAN_STATUS": {
                 "label": "扫描状态",
@@ -122,7 +131,23 @@ const DISPLAY_MAPPINGS = {
                     "0": "成功",
                     "1": "失败"
                 }
-            }
+            },
+            "QCA_WLAN_VENDOR_ATTR_SCAN_MAC": { "label": "扫描使用的MAC地址" },
+            "QCA_WLAN_VENDOR_ATTR_SCAN_MAC_MASK": { "label": "MAC地址掩码" },
+            "QCA_WLAN_VENDOR_ATTR_SCAN_BSSID": { "label": "目标BSSID" },
+            "QCA_WLAN_VENDOR_ATTR_SCAN_DWELL_TIME": { "label": "信道驻留时间 (ms)" },
+            "QCA_WLAN_VENDOR_ATTR_SCAN_PRIORITY": { 
+                "label": "扫描优先级",
+                "values": {
+                    "0": "低优先级",
+                    "1": "中优先级", 
+                    "2": "高优先级"
+                }
+            },
+            "QCA_WLAN_VENDOR_ATTR_SCAN_LINK_ID": { "label": "链路ID" },
+            "QCA_WLAN_VENDOR_ATTR_SCAN_SKIP_CHANNEL_RECENCY_PERIOD": { "label": "跳过信道近期周期 (ms)" },
+            "Frequency": { "label": "扫描频率 (MHz)" },
+            "SSID": { "label": "SSID" }
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_ADD_VIF": {
@@ -574,6 +599,73 @@ const DISPLAY_MAPPINGS = {
                 "524826": "INDOOR_ONLY + DFS + NO_IR + AP模式特殊限制 (TPC（发射功率控制）+强制的DFS)",
                 "524834": "INDOOR_ONLY + AP模式特殊限制 (TPC（发射功率控制）+强制的DFS) + 带宽限制 (NO_HT40MINUS)"
          }}
+        }
+    },
+    "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_ASSOC_SUCC": {
+        "friendly_name": "终端关联成功 (WIFIDBG_ASSOC_SUCC)",
+        "attributes": {
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_INVALID": { "label": "无效参数" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_IFNAME": { "label": "接口名" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_MAC_ADDR": { "label": "终端MAC地址" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_FREQ": { "label": "频率 (MHz)" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_ID": { "label": "关联ID" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_CAPS_FLAGS": { "label": "关键能力标志位",
+                "values": {
+                    "1": "WMM/QoS 支持",
+                    "2": "Wi-Fi 6 (HE) 支持",
+                    "3": "WMM/QoS 支持 + Wi-Fi 6 (HE) 支持",
+                    "4": "A-MPDU 支持",
+                    "5": "WMM/QoS 支持 + A-MPDU 支持",
+                    "6": "Wi-Fi 6 (HE) 支持 + A-MPDU 支持",
+                    "7": "WMM/QoS 支持 + Wi-Fi 6 (HE) 支持 + A-MPDU 支持",
+                    "8": "短保护间隔 (SGI) 支持",
+                    "9": "WMM/QoS 支持 + 短保护间隔 (SGI) 支持",
+                    "10": "Wi-Fi 6 (HE) 支持 + 短保护间隔 (SGI) 支持",
+                    "11": "WMM/QoS 支持 + Wi-Fi 6 (HE) 支持 + 短保护间隔 (SGI) 支持",
+                    "12": "A-MPDU 支持 + 短保护间隔 (SGI) 支持",
+                    "13": "WMM/QoS 支持 + A-MPDU 支持 + 短保护间隔 (SGI) 支持",
+                    "14": "Wi-Fi 6 (HE) 支持 + A-MPDU 支持 + 短保护间隔 (SGI) 支持",
+                    "15": "WMM/QoS 支持 + Wi-Fi 6 (HE) 支持 + A-MPDU 支持 + 短保护间隔 (SGI) 支持"
+    
+                }
+             },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_ASSOC_REQ_IES": { "label": "关联请求IEs" }
+        }
+    },
+    "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_ASSOC_FAIL": {
+        "friendly_name": "终端关联失败 (WIFIDBG_ASSOC_FAIL)",
+        "attributes": {
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_INVALID": { "label": "无效参数" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_IFNAME": { "label": "接口名" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_MAC_ADDR": { "label": "终端MAC地址" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_REASON": { "label": "失败原因" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_REQ_IES": { "label": "关联请求IEs" }
+        }
+    },
+    "QCA_NL80211_VENDOR_SUBCMD_DFS_OFFLOAD_CAC_STARTED": {
+        "friendly_name": "DFS 检测启动 (CAC Started)",
+        "attributes": {
+            "QCA_WLAN_VENDOR_ATTR_DFS_OFFLOAD_CAC_STARTED_INVALID": { "label": "无效参数" },
+            "NL80211_ATTR_WIPHY_FREQ": { "label": "中心频率 (MHz)" }
+        }
+    },
+    "QCA_NL80211_VENDOR_SUBCMD_DFS_OFFLOAD_CAC_FINISHED": {
+        "friendly_name": "DFS 检测完成 (CAC Finished)",
+        "attributes": {
+            "QCA_WLAN_VENDOR_ATTR_DFS_OFFLOAD_CAC_FINISHED_INVALID": { "label": "无效参数" },
+            "NL80211_ATTR_WIPHY_FREQ": { "label": "中心频率 (MHz)" }
+        }
+    },
+    "QCA_NL80211_VENDOR_SUBCMD_IDLE_SHUTDOWN": {
+    "friendly_name": "设备空闲关机 (IDLE_SHUTDOWN)",
+    "attributes": {
+        "QCA_WLAN_VENDOR_ATTR_IDLE_SHUTDOWN_STATUS": { 
+            "label": "空闲关机状态",
+            "values": {
+                "0": "空闲关机开始",
+                "1": "空闲关机完成(不代表成功)"
+                }
+            }
         }
     }
 }

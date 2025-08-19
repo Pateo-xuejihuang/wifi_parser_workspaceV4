@@ -5,6 +5,14 @@ import sys
 import json
 import argparse
 from typing import List, Dict, Union, Optional
+import io
+from contextlib import redirect_stdout
+
+try:
+    from scapy.layers.dot11 import Dot11Elt
+except ImportError:
+    print("错误: 无法导入 Scapy。请先运行 'pip install scapy'。", file=sys.stderr)
+    sys.exit(1)
 
 # 从我们的配置文件中导入定义
 try:
@@ -91,6 +99,29 @@ def format_data_value(payload: bytes, data_type: str = 'hex') -> tuple[Union[str
     # 默认或回退情况
     return hex_data, hex_data
 
+def parse_ies_with_scapy(payload: bytes) -> List[Dict]:
+    """【最终版】捕获 Scapy 的 .show() 输出，并添加一个格式化标志。"""
+    if not payload:
+        return []
+
+    try:
+        all_ies = Dot11Elt(payload)
+        f = io.StringIO()
+        with redirect_stdout(f):
+            all_ies.show()
+        captured_output = f.getvalue()
+        
+        # --- 这是关键修改 ---
+        # 返回的字典里加一个特殊的键 'format'
+        parsed_ies = [
+            {"name": "--- Scapy Raw Output ---", "value": captured_output, "format": "preformatted"}
+        ]
+        
+    except Exception as e:
+        parsed_ies = [{"name": "Scapy Parse Error", "value": str(e)}]
+
+    return parsed_ies
+
 # --- NEW FUNCTION ---
 # 新增一个函数，用于将原始字节 payload 解析为基于偏移量定义的结构体
 def parse_struct(payload: bytes, struct_def: Dict) -> List[Dict]:
@@ -137,6 +168,11 @@ def build_translated_tree(nlas: List[NLA], subcmd_def: Dict, current_rule_key: O
         
         # 检查这是否是我们定义的特殊 "struct" 类型
         is_custom_struct = isinstance(attr_def, dict) and attr_def.get('type') == 'struct'
+        # --- 新增：检查是否是我们的特殊 IEs 类型 ---
+        is_assoc_ies = isinstance(attr_def, dict) and attr_def.get('type') == 'assoc_req_ies'
+        if is_assoc_ies:
+            # 如果是，使用 Scapy 解析函数
+            node["children"] = parse_ies_with_scapy(nla.payload)
 
         if is_custom_struct:
             # 如果是，使用新的 parse_struct 函数来解析 payload
