@@ -6,6 +6,7 @@
 !display_definitions.js
 !definitions.py
 !report_generator.py
+!README.md
 
 # 忽略Python编译文件和缓存
 __pycache__/
