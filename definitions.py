@@ -397,5 +397,15 @@ VENDOR_SUBCMD_ENUMS = {
             0: {'name': 'QCA_WLAN_VENDOR_ATTR_DFS_OFFLOAD_CAC_FINISHED_INVALID', 'type': 'u32'},
             38: {'name': 'NL80211_ATTR_WIPHY_FREQ', 'type': 'u32'}
         }
+    },
+    
+    157: {
+        "name": "QCA_NL80211_VENDOR_SUBCMD_HANG_REASON",
+        "initial_rule": "attrs",
+        "attrs": {
+            0: {'name': 'QCA_WLAN_VENDOR_ATTR_HANG_REASON_INVALID', 'type': 'u32'},
+            1: {'name': 'QCA_WLAN_VENDOR_ATTR_HANG_REASON', 'type': 'u32'},
+            2: {'name': 'QCA_WLAN_VENDOR_ATTR_HANG_REASON_DATA', 'type': 'hex'}
+        }
     }
 }
