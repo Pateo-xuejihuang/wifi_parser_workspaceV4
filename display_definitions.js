@@ -53,7 +53,8 @@ const DISPLAY_MAPPINGS = {
                 "values": {
                     "0": "成功",
                     "1": "失败"
-                }
+                },
+                "error_values": ["1"]
             },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_IFNAME": { "label": "接口名" }
         }
@@ -191,7 +192,8 @@ const DISPLAY_MAPPINGS = {
                 "values": {
                     "0": "成功",
                     "1": "失败"
-                }
+                },
+                "error_values": ["1"]
             }
         }
     },
@@ -304,7 +306,8 @@ const DISPLAY_MAPPINGS = {
                 "values": {
                     "0": "成功",
                     "1": "失败"
-                }
+                },
+                "error_values": ["1"]
             }
         }
     },
@@ -342,7 +345,8 @@ const DISPLAY_MAPPINGS = {
                 "values": {
                     "0": "成功",
                     "-2": "错误：已被驱动删除"
-                }
+                },
+                "error_values": ["-2"]
             }
         }
     },
@@ -389,12 +393,13 @@ const DISPLAY_MAPPINGS = {
                 "values": {
                     "0": "成功",
                     "1": "失败"
-                }
+                },
+                "error_values": ["1"]
             }
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_GET_STATION": {
-        "friendly_name": "获取终端信息 (GET_STATION)",
+        "friendly_name": "STA模式-获取终端信息 (GET_STATION)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_IFNAME": { "label": "接口名" },
@@ -427,7 +432,8 @@ const DISPLAY_MAPPINGS = {
                 "values": {
                     "0": "成功",
                     "1": "失败"
-                }
+                },
+                "error_values": ["1"]
             }
         }
     },
@@ -441,7 +447,8 @@ const DISPLAY_MAPPINGS = {
                 "values": {
                     "0": "成功",
                     "1": "失败"
-                }
+                },
+                "error_values": ["1"]
             }
         }
     },
@@ -486,7 +493,8 @@ const DISPLAY_MAPPINGS = {
                 "values": {
                     "0": "成功",
                     "1": "失败"
-                }
+                },
+                "error_values": ["1"]
             }
         }
     },
@@ -536,7 +544,8 @@ const DISPLAY_MAPPINGS = {
                 "values": {
                     "0": "成功",
                     "1": "失败"
-                }
+                },
+                "error_values": ["1"]
             }
         }
     },

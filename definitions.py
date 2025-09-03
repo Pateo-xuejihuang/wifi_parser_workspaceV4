@@ -41,7 +41,7 @@ VENDOR_SUBCMD_ENUMS = {
             2: { "name": "QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_BW", "type": "u32" },
             3: { "name": "QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_SSID", "type": "string" },
             4: { "name": "QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_FLAGS", "type": "u32" },
-            5: { "name": "QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_RESULT", "type": "u32" },
+            5: { "name": "QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_RESULT", "type": "s32" },
             6: { "name": "QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_IFNAME", "type": "string" },
         }
     },
@@ -144,7 +144,7 @@ VENDOR_SUBCMD_ENUMS = {
                 3: {'name': 'QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_NAME_ASSIGN_TYPE', 'type': 'u32'},
                 4: {'name': 'QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_FLAGS', 'type': 'u32'},
                 5: {'name': 'QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_MAC_ADDR', 'type': 'mac_address'},
-                6: {'name': 'QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_RESULT', 'type': 'u32'}
+                6: {'name': 'QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_RESULT', 'type': 's32'}
                 }
     },
     181: {
@@ -205,7 +205,7 @@ VENDOR_SUBCMD_ENUMS = {
                 2: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_BSS_VDEV_ID', 'type': 'u32'},
                 3: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_BSS_DEVICE_MODE', 'type': 'u32'},
                 4: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_BSS_AP_ISOLATE', 'type': 'u32'},
-                5: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_BSS_RESULT', 'type': 'u32'}
+                5: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_BSS_RESULT', 'type': 's32'}
         }
     },
     65036: {
@@ -228,7 +228,7 @@ VENDOR_SUBCMD_ENUMS = {
                 1: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_SCAN_N_IFNAME', 'type': 'string'},
                 2: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_SCAN_N_SSIDS', 'type': 'u32'},
                 3: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_SCAN_N_CHANNELS', 'type': 'u32'},
-                4: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_SCAN_N_RESULT', 'type': 'u32'}
+                4: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_SCAN_N_RESULT', 'type': 's32'}
         }
     },
     65037: {
@@ -240,7 +240,7 @@ VENDOR_SUBCMD_ENUMS = {
                 2: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_VDEV_ID', 'type': 'u32'},
                 3: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_DEVICE_MODE', 'type': 'u32'},
                 4: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_MAC', 'type': 'mac_address'},
-                5: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_RESULT', 'type': 'u32'}
+                5: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_RESULT', 'type': 's32'}
         }
     },
     65028: {
@@ -249,7 +249,7 @@ VENDOR_SUBCMD_ENUMS = {
         "attrs": {
                 0: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_STOP_AP_INVALID', 'type': 'u32'},
                 1: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_STOP_AP_IFNAME', 'type': 'string'},
-                2: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_STOP_AP_RESULT', 'type': 'u32'}
+                2: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_STOP_AP_RESULT', 'type': 's32'}
         }
     },
     65029: {
@@ -278,7 +278,7 @@ VENDOR_SUBCMD_ENUMS = {
         "attrs": {
                 0: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_BEACON_CHANGE_INVALID', 'type': 'u32'},
                 1: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_BEACON_CHANGE_IFNAME', 'type': 'string'},
-                2: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_BEACON_CHANGE_RESULT', 'type': 'u32'}
+                2: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_BEACON_CHANGE_RESULT', 'type': 's32'}
         }
     },
     188: {
@@ -286,7 +286,7 @@ VENDOR_SUBCMD_ENUMS = {
         "initial_rule": "attrs",
         "attrs": {
             0: { "name": "QCA_WLAN_VENDOR_ATTR_UPDATE_STA_INFO_INVALID", "type": "u32" },
-            1: { "name": "QCA_WLAN_VENDOR_ATTR_UPDATE_STA_INFO_CONNECT_CHANNELS", "type": "u32" },
+            1: { "name": "QCA_WLAN_VENDOR_ATTR_UPDATE_STA_INFO_CONNECT_CHANNELS", "type": "s32" },
         }
     },
     189: {
@@ -330,7 +330,7 @@ VENDOR_SUBCMD_ENUMS = {
             0: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_VIF_INVALID', 'type': 'u32'},
             1: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_VIF_IFNAME', 'type': 'string'},
             2: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_VIF_MAC_ADDR', 'type': 'mac_address'},
-            3: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_VIF_RESULT', 'type': 'u32'}
+            3: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_VIF_RESULT', 'type': 's32'}
         }
     },
     65039: {
@@ -406,6 +406,13 @@ VENDOR_SUBCMD_ENUMS = {
             0: {'name': 'QCA_WLAN_VENDOR_ATTR_HANG_REASON_INVALID', 'type': 'u32'},
             1: {'name': 'QCA_WLAN_VENDOR_ATTR_HANG_REASON', 'type': 'u32'},
             2: {'name': 'QCA_WLAN_VENDOR_ATTR_HANG_REASON_DATA', 'type': 'hex'}
+        }
+    },
+
+    214: {
+        "name": "QCA_NL80211_VENDOR_SUBCMD_DRIVER_READY",
+        "initial_rule": "attrs",
+        "attrs": {
         }
     }
 }

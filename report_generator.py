@@ -93,7 +93,41 @@ CSS_STYLES = """
     .container { max-width: 1200px; margin: 0 auto; }
     h1, h2 { font-weight: 500; color: #343a40; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5em; margin-top: 2em; margin-bottom: 1em;}
     
-    /* 过滤区域 */
+    /* 错误结果高亮样式 */
+    .error-result {
+        background-color: #dc3545 !important;
+        color: white !important;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+    
+    /* 包含错误的事件项样式 */
+    .event-item.has-error .event-header {
+        border-left: 4px solid #dc3545;
+        background-color: #fff5f5;
+    }
+    
+    .event-item.has-error .event-timestamp {
+        color: #dc3545;
+        font-weight: bold;
+    }
+
+    /* 过滤控件 - 错误事件过滤器 */
+    .error-filter {
+        border: 1px solid #dc3545;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #fff5f5;
+    }
+    
+    .error-filter label {
+        color: #dc3545;
+        font-weight: 500;
+    }
+
+    /* 过滤控件 */
     .filter-container { background: var(--card-bg); padding: 1.5em; border-radius: 8px; margin-bottom: 2em; border: 1px solid var(--border-color); }
     .filter-controls { display: flex; flex-wrap: wrap; gap: 10px 20px; }
     .filter-controls label { display: flex; align-items: center; cursor: pointer; font-size: 0.9em; }
@@ -204,6 +238,7 @@ JAVASCRIPT_CODE = """
         const eventItems = document.querySelectorAll('.event-item');
         const selectAllBtn = document.getElementById('select-all');
         const deselectAllBtn = document.getElementById('deselect-all');
+        const errorOnlyFilter = document.getElementById('error-only-filter');
         
         // 折叠/展开逻辑
         headers.forEach(header => {
@@ -225,12 +260,18 @@ JAVASCRIPT_CODE = """
         // 过滤逻辑
         const applyFilter = () => {
             const checkedSubCmds = new Set();
+            const errorOnlyChecked = errorOnlyFilter ? errorOnlyFilter.checked : false;
+            
             filterControls.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
                 checkedSubCmds.add(checkbox.dataset.subcmdId);
             });
 
             eventItems.forEach(item => {
-                if (checkedSubCmds.has(item.dataset.subcmdId)) {
+                const matchesSubCmd = checkedSubCmds.has(item.dataset.subcmdId);
+                const hasError = item.dataset.hasError === 'true';
+                const matchesErrorFilter = !errorOnlyChecked || hasError;
+                
+                if (matchesSubCmd && matchesErrorFilter) {
                     item.style.display = '';
                 } else {
                     item.style.display = 'none';
@@ -250,6 +291,11 @@ JAVASCRIPT_CODE = """
                 filterControls.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
                 applyFilter();
             });
+        }
+        
+        // 错误事件过滤器
+        if (errorOnlyFilter) {
+            errorOnlyFilter.addEventListener('change', applyFilter);
         }
     });
 </script>
@@ -332,6 +378,7 @@ def render_tree_to_html(nodes: List[Dict], subcmd_name: str, display_defs: Dict)
     """
     【HTML换行修正版】渲染属性树到HTML。
     能够识别 'format': 'preformatted' 标记，并使用 <pre> 标签渲染。
+    支持错误值高亮显示。
     """
     if not nodes: return ""
     html = '<div class="tree-container">'
@@ -373,7 +420,13 @@ def render_tree_to_html(nodes: List[Dict], subcmd_name: str, display_defs: Dict)
                     value_str = f'{mapped_value} ({value})'
                 else:
                     value_str = f'"{value}"' if isinstance(value, str) and value != "empty" else str(value)
-                html += f'<span class="label">{label}:</span><span class="value">{value_str}</span>'
+                
+                # 【新增】检查是否为错误值并添加错误样式
+                error_class = ""
+                if "error_values" in attr_def and str(value) in attr_def["error_values"]:
+                    error_class = " error-result"
+                
+                html += f'<span class="label">{label}:</span><span class="value{error_class}">{value_str}</span>'
         html += '</div></div>'
         
         rendered_keys.add(attr_name)
@@ -394,21 +447,55 @@ def render_tree_to_html(nodes: List[Dict], subcmd_name: str, display_defs: Dict)
                     html += f'<span class="label">{label}:</span><pre class="preformatted-text">{value}</pre>'
                 else:
                     value_str = f'"{value}"' if isinstance(value, str) and value != "empty" else str(value)
-                    html += f'<span class="label">{label}:</span><span class="value">{value_str}</span>'
+                    # 【新增】对于未定义的 _RESULT 字段，如果值不为 "0"，也标记为错误
+                    error_class = ""
+                    if "_RESULT" in label and str(value) != "0":
+                        error_class = " error-result"
+                    html += f'<span class="label">{label}:</span><span class="value{error_class}">{value_str}</span>'
             html += '</div></div>'
             
     html += '</div>'
     return html
+
+def has_error_result(event: Dict, display_defs: Dict) -> bool:
+    """
+    检查事件是否包含错误结果。
+    检查所有 _RESULT 字段，如果值不为 "0" 则认为是错误。
+    """
+    subcmd_name = event['subcmd_name']
+    attr_defs = display_defs.get(subcmd_name, {}).get('attributes', {})
+    
+    # 使用扁平化函数获取所有属性值
+    data_map = _flatten_tree_for_data_lookup(event['tree'])
+    
+    # 检查在 display_definitions.js 中定义的错误值
+    for attr_name, attr_def in attr_defs.items():
+        if "error_values" in attr_def:
+            value = data_map.get(attr_name)
+            if value is not None and str(value) in attr_def["error_values"]:
+                return True
+    
+    # 检查任何未定义的 _RESULT 字段
+    for attr_name, value in data_map.items():
+        if "_RESULT" in attr_name and str(value) != "0":
+            return True
+    
+    return False
 
 def create_event_item_html(event: Dict, display_defs: Dict) -> str:
     subcmd_name = event['subcmd_name']
     subcmd_map = get_display_mapping(subcmd_name, display_defs)
     friendly_name = subcmd_map.get("friendly_name", subcmd_name)
     
+    # 检查是否包含错误
+    has_error = has_error_result(event, display_defs)
+    error_class = " has-error" if has_error else ""
+    error_indicator = "❌ " if has_error else ""
+    
     header = f"""
     <div class="event-header">
         <span class="event-timestamp">{event['data_timestamp'].split()[-1]}</span>
-        <span class="event-title">{friendly_name}</span>
+        <span class="event-title">{error_indicator}{friendly_name}</span>
     </div>
     """
     body = f"""
@@ -416,10 +503,10 @@ def create_event_item_html(event: Dict, display_defs: Dict) -> str:
         {render_tree_to_html(event['tree'], subcmd_name, display_defs)}
     </div>
     """
-    return f'<div class="event-item" data-subcmd-id="{event["subcmd"]}">\n{header}\n{body}\n</div>'
+    return f'<div class="event-item{error_class}" data-subcmd-id="{event["subcmd"]}" data-has-error="{str(has_error).lower()}">\n{header}\n{body}\n</div>'
 
 
-def generate_filter_controls_html(summary: List) -> str:
+def generate_filter_controls_html(summary: List, error_count: int = 0) -> str:
     controls_html = ""
     for name, data in summary:
         subcmd_id = data['subcmd_id']
@@ -429,9 +516,20 @@ def generate_filter_controls_html(summary: List) -> str:
             {name}
         </label>
         """
+    
+    error_filter_html = f"""
+    <div class="error-filter">
+        <label>
+            <input type="checkbox" id="error-only-filter">
+            🚨 仅显示错误事件 ({error_count} 个错误)
+        </label>
+    </div>
+    """ if error_count > 0 else ""
+    
     return f"""
     <div class="filter-container">
         <h2>Filter Events</h2>
+        {error_filter_html}
         <div id="filter-controls" class="filter-controls">
             {controls_html}
         </div>
@@ -471,11 +569,14 @@ def generate_report(parsed_json_path: str, display_defs_path: str, output_html_p
     except Exception as e:
         print(f"⚠️ 警告: 无法解析显示定义文件 {display_defs_path}: {e}")
 
+    # 预处理事件并统计错误数量
+    processed_events = [preprocess_event_tree(event, display_defs) for event in parsed_data]
+    error_count = sum(1 for event in processed_events if has_error_result(event, display_defs))
+    
     summary = calculate_stats_and_summary(parsed_data, display_defs)
     summary_table_rows = "\n".join([f'<tr><td>{name}</td><td><span class="subcmd-id">{data["subcmd_id"]}</span></td><td>{data["count"]}</td></tr>' for name, data in summary])
-    filter_section_html = generate_filter_controls_html(summary) if summary else ""
+    filter_section_html = generate_filter_controls_html(summary, error_count) if summary else ""
 
-    processed_events = [preprocess_event_tree(event, display_defs) for event in parsed_data]
     event_items_html = "\n".join([create_event_item_html(event, display_defs) for event in processed_events])
     
     final_html = HTML_TEMPLATE.format(
@@ -490,6 +591,8 @@ def generate_report(parsed_json_path: str, display_defs_path: str, output_html_p
         with open(output_html_path, 'w', encoding='utf-8') as f:
             f.write(final_html)
         print(f"✅ HTML报告已成功生成: {output_html_path}")
+        if error_count > 0:
+            print(f"⚠️  发现 {error_count} 个错误事件，已在报告中高亮显示")
     except Exception as e:
         print(f"❌ 错误: 无法写入HTML报告文件: {e}")
 
