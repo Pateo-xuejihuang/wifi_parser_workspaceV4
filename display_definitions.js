@@ -59,16 +59,17 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_CACHE_STA_INFO": {
-    "friendly_name": "终端断开连接 (CACHE_STA_INFO)",
-    "attributes": {
-        "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_IFNAME": { "label": "接口名" },
-        "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_MAC": { "label": "终端 MAC 地址" },
-        "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_FREQ": { "label": "终端频率 (MHz)" },
-        "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_TX_RETRY_EXHAUST_FW": { "label": "发送重试耗尽 (TX Retry Exhausted)" },
-        "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_RX_FCS_COUNT": { "label": "接收 FCS 错误计数" },
-        "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_RSSI": { "label": "信号强度 (RSSI)" },
-        "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_REASON": { "label": "断开原因" ,
-            "values": {
+        "friendly_name": "AP模式-终端断开连接 (CACHE_STA_INFO)",
+        "attributes": {
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_IFNAME": { "label": "接口名" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_MAC": { "label": "终端 MAC 地址" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_FREQ": { "label": "终端频率 (MHz)" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_TX_RETRY_EXHAUST_FW": { "label": "发送重试耗尽 (TX Retry Exhausted)" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_RX_FCS_COUNT": { "label": "接收 FCS 错误计数" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_RSSI": { "label": "信号强度 (RSSI)" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_REASON": {
+                "label": "断开原因",
+                "values": {
                     "0": "未指定失败",
                     "1": "之前的认证已失效",
                     "2": "Deauth/Disassoc: 离开 BSS/IBSS/ESS",
@@ -78,36 +79,36 @@ const DISPLAY_MAPPINGS = {
                     "6": "收到未认证 STA 的 Class 2 帧（如数据帧），协议违规",
                     "7": "收到未关联 STA 的 Class 3 帧（如 QoS 数据），协议违规",
                     "8": "手机(iOS/Android)锁屏或省电时断开"
+                }
+            },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_TX_RATE": { "label": "原始发送速率", "display": "none" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_RX_RATE": { "label": "原始接收速率", "display": "none" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_ASSOC_TS": { "label": "关联时间戳 (Jiffies)", "display": "none" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_DISASSOC_TS": { "label": "断开时间戳 (Jiffies)", "display": "none" },
+
+            "COMPUTED_TX_RATE_MBPS": {
+                "label": "发送速率",
+                "format": "kbps_to_mbps",
+                "inputs": ["QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_TX_RATE"]
+            },
+
+            "COMPUTED_RX_RATE_MBPS": {
+                "label": "接收速率",
+                "format": "kbps_to_mbps",
+                "inputs": ["QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_RX_RATE"]
+            },
+
+            "COMPUTED_CONNECTION_DURATION": {
+                "label": "首次上线持续时长",
+                "format": "duration",
+                "inputs": [
+                    "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_ASSOC_TS",
+                    "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_DISASSOC_TS"
+                ],
+                "params": { "hz": 250 }
             }
-        },
-        "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_TX_RATE": { "label": "原始发送速率", "display": "none" },
-        "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_RX_RATE": { "label": "原始接收速率", "display": "none" },
-        "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_ASSOC_TS":   { "label": "关联时间戳 (Jiffies)", "display": "none" },
-        "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_DISASSOC_TS": { "label": "断开时间戳 (Jiffies)", "display": "none" },
-
-        "COMPUTED_TX_RATE_MBPS": {
-            "label": "发送速率",
-            "format": "kbps_to_mbps",
-            "inputs": ["QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_TX_RATE"]
-        },
-
-        "COMPUTED_RX_RATE_MBPS": {
-            "label": "接收速率",
-            "format": "kbps_to_mbps",
-            "inputs": ["QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_RX_RATE"]
-        },
-
-        "COMPUTED_CONNECTION_DURATION": {
-            "label": "首次上线持续时长",
-            "format": "duration",
-            "inputs": [
-                "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_ASSOC_TS",
-                "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_DISASSOC_TS"
-            ],
-            "params": { "hz": 250 }
         }
-    }
-},
+    },
     "QCA_NL80211_VENDOR_SUBCMD_SCAN_DONE": {
         "friendly_name": "扫描完成事件 (SCAN_DONE)",
         "attributes": {
@@ -116,7 +117,7 @@ const DISPLAY_MAPPINGS = {
             "QCA_WLAN_VENDOR_ATTR_SCAN_FREQUENCIES": { "label": "扫描的信道列表" },
             "QCA_WLAN_VENDOR_ATTR_SCAN_SSIDS": { "label": "SSID 列表" },
             "QCA_WLAN_VENDOR_ATTR_SCAN_SUPP_RATES": { "label": "支持的速率" },
-            "QCA_WLAN_VENDOR_ATTR_SCAN_TX_NO_CCK_RATE": { 
+            "QCA_WLAN_VENDOR_ATTR_SCAN_TX_NO_CCK_RATE": {
                 "label": "禁用CCK速率发送",
                 "values": {
                     "0": "允许CCK速率",
@@ -136,11 +137,11 @@ const DISPLAY_MAPPINGS = {
             "QCA_WLAN_VENDOR_ATTR_SCAN_MAC_MASK": { "label": "MAC地址掩码" },
             "QCA_WLAN_VENDOR_ATTR_SCAN_BSSID": { "label": "目标BSSID" },
             "QCA_WLAN_VENDOR_ATTR_SCAN_DWELL_TIME": { "label": "信道驻留时间 (ms)" },
-            "QCA_WLAN_VENDOR_ATTR_SCAN_PRIORITY": { 
+            "QCA_WLAN_VENDOR_ATTR_SCAN_PRIORITY": {
                 "label": "扫描优先级",
                 "values": {
                     "0": "低优先级",
-                    "1": "中优先级", 
+                    "1": "中优先级",
                     "2": "高优先级"
                 }
             },
@@ -155,7 +156,7 @@ const DISPLAY_MAPPINGS = {
         "attributes": {
             "QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_CONTAINER": { "label": "配置容器" },
             "QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_IFNAME": { "label": "接口名" },
-            "QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_IFTYPE": { 
+            "QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_IFTYPE": {
                 "label": "接口类型",
                 "values": {
                     "0": "未指定",
@@ -173,7 +174,7 @@ const DISPLAY_MAPPINGS = {
                     "12": "NAN 接口"
                 }
             },
-            "QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_NAME_ASSIGN_TYPE": { 
+            "QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_NAME_ASSIGN_TYPE": {
                 "label": "名称分配类型",
                 "values": {
                     "0": "未知/默认方式",
@@ -185,7 +186,7 @@ const DISPLAY_MAPPINGS = {
             },
             "QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_FLAGS": { "label": "标志位" },
             "QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_MAC_ADDR": { "label": "MAC 地址" },
-            "QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_RESULT": { 
+            "QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_RESULT": {
                 "label": "添加结果",
                 "values": {
                     "0": "成功",
@@ -195,11 +196,11 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_INTEROP_ISSUES_AP": {
-                "friendly_name": "互操作问题AP (INTEROP_AP)",
-                "attributes": {
-                    "QCA_WLAN_VENDOR_ATTR_INTEROP_ISSUES_AP_TYPE": { "label": "AP 类型" },
-                    "QCA_WLAN_VENDOR_ATTR_INTEROP_ISSUES_AP_LIST": { "label": "AP 列表" },
-                    "QCA_WLAN_VENDOR_ATTR_INTEROP_ISSUES_AP_BSSID": { "label": "AP BSSID" }
+        "friendly_name": "互操作问题AP (INTEROP_AP)",
+        "attributes": {
+            "QCA_WLAN_VENDOR_ATTR_INTEROP_ISSUES_AP_TYPE": { "label": "AP 类型" },
+            "QCA_WLAN_VENDOR_ATTR_INTEROP_ISSUES_AP_LIST": { "label": "AP 列表" },
+            "QCA_WLAN_VENDOR_ATTR_INTEROP_ISSUES_AP_BSSID": { "label": "AP BSSID" }
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_NAN": {
@@ -208,7 +209,7 @@ const DISPLAY_MAPPINGS = {
             "QCA_WLAN_VENDOR_ATTR_NAN_DATA_BLOB": { "label": "NAN 事件原始数据" }
         }
     },
-       "QCA_NL80211_VENDOR_SUBCMD_DO_ACS": {
+    "QCA_NL80211_VENDOR_SUBCMD_DO_ACS": {
         "friendly_name": "自动信道选择结果 (ACS)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_ACS_PRIMARY_FREQUENCY": { "label": "主信道频率 (MHz)" },
@@ -291,27 +292,30 @@ const DISPLAY_MAPPINGS = {
                     "16": "NAN DISC模式"
                 }
             },
-            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_BSS_AP_ISOLATE": { "label": "AP隔离",
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_BSS_AP_ISOLATE": {
+                "label": "AP隔离",
                 "values": {
                     "0": "禁用",
                     "1": "启用"
                 }
-             },
-            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_BSS_RESULT": { "label": "切换结果",
+            },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_BSS_RESULT": {
+                "label": "切换结果",
                 "values": {
                     "0": "成功",
                     "1": "失败"
                 }
-             }
+            }
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_DEL_STATION": {
-        "friendly_name": "删除终端 (DEL_STATION)",
+        "friendly_name": "AP模式-删除终端 (DEL_STATION)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_STATION_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_STATION_IFNAME": { "label": "接口名" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_STATION_VDEV_ID": { "label": "虚拟设备ID (vdev_id)" },
-            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_STATION_DEVICE_MODE": { "label": "设备模式",
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_STATION_DEVICE_MODE": {
+                "label": "设备模式",
                 "values": {
                     "0": "STA模式",
                     "1": "AP模式",
@@ -333,12 +337,13 @@ const DISPLAY_MAPPINGS = {
                 }
             },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_STATION_MAC": { "label": "终端MAC地址" },
-            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_STATION_RESULT": { "label": "删除结果",
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_STATION_RESULT": {
+                "label": "删除结果",
                 "values": {
                     "0": "成功",
                     "-2": "错误：已被驱动删除"
                 }
-             }
+            }
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_LINK_PROPERTIES": {
@@ -350,7 +355,8 @@ const DISPLAY_MAPPINGS = {
             "QCA_WLAN_VENDOR_ATTR_LINK_PROPERTIES_FREQ": { "label": "频率 (MHz)" },
             "QCA_WLAN_VENDOR_ATTR_LINK_PROPERTIES_MAC_ADDR": { "label": "MAC地址" },
             "QCA_WLAN_VENDOR_ATTR_LINK_PROPERTIES_STA_FLAGS": { "label": "STA标志位" },
-            "mask":{ "label": "掩码",
+            "mask": {
+                "label": "掩码",
                 "values": {
                     "1": "__NL80211_STA_FLAG_INVALID",
                     "2": "NL80211_STA_FLAG_AUTHORIZED",
@@ -362,7 +368,8 @@ const DISPLAY_MAPPINGS = {
                     "128": "NL80211_STA_FLAG_ASSOCIATED"
                 }
             },
-            "set": { "label": "设置",
+            "set": {
+                "label": "设置",
                 "values": {
                     "0": "未设置",
                     "1": "已设置"
@@ -377,7 +384,8 @@ const DISPLAY_MAPPINGS = {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_SCAN_N_IFNAME": { "label": "接口名" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_SCAN_N_SSIDS": { "label": "扫描 SSID 数量" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_SCAN_N_CHANNELS": { "label": "扫描信道数量" },
-            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_SCAN_N_RESULT": { "label": "扫描结果", 
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_SCAN_N_RESULT": {
+                "label": "扫描结果",
                 "values": {
                     "0": "成功",
                     "1": "失败"
@@ -391,7 +399,8 @@ const DISPLAY_MAPPINGS = {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_IFNAME": { "label": "接口名" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_VDEV_ID": { "label": "虚拟设备ID (vdev_id)" },
-            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_DEVICE_MODE": { "label": "设备模式",
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_DEVICE_MODE": {
+                "label": "设备模式",
                 "values": {
                     "0": "STA模式",
                     "1": "AP模式",
@@ -411,9 +420,10 @@ const DISPLAY_MAPPINGS = {
                     "15": "TDLS模式",
                     "16": "NAN DISC模式"
                 }
-             },
+            },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_MAC": { "label": "终端MAC地址" },
-            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_RESULT": { "label": "获取结果", 
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_RESULT": {
+                "label": "获取结果",
                 "values": {
                     "0": "成功",
                     "1": "失败"
@@ -426,7 +436,8 @@ const DISPLAY_MAPPINGS = {
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_STOP_AP_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_STOP_AP_IFNAME": { "label": "接口名" },
-            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_STOP_AP_RESULT": { "label": "停止结果", 
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_STOP_AP_RESULT": {
+                "label": "停止结果",
                 "values": {
                     "0": "成功",
                     "1": "失败"
@@ -435,7 +446,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_CONNECT": {
-        "friendly_name": "连接AP (CONNECT)",
+        "friendly_name": "STA模式-连接AP (CONNECT)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CONNECT_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CONNECT_IFNAME": { "label": "接口名" },
@@ -445,11 +456,12 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_DISCONNECT": {
-        "friendly_name": "断开连接 (DISCONNECT)",
+        "friendly_name": "STA模式-断开连接 (DISCONNECT)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DISCONNECT_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DISCONNECT_IFNAME": { "label": "接口名" },
-            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DISCONNECT_REASON": { "label": "断开原因",
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DISCONNECT_REASON": {
+                "label": "断开原因",
                 "values": {
                     "0": "未指定失败",
                     "1": "之前的认证已失效",
@@ -486,10 +498,11 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_DRIVER_DISCONNECT_REASON": {
-        "friendly_name": "驱动断开原因 (DISCONNECT_REASON)",
+        "friendly_name": "STA模式-驱动断开原因 (DISCONNECT_REASON)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_DRIVER_DISCONNECT_REASON_INVALID": { "label": "无效参数" },
-            "QCA_WLAN_VENDOR_ATTR_GET_STATION_INFO_DRIVER_DISCONNECT_REASON": { "label": "驱动断开原因码",
+            "QCA_WLAN_VENDOR_ATTR_GET_STATION_INFO_DRIVER_DISCONNECT_REASON": {
+                "label": "驱动断开原因码",
                 "values": {
                     "0": "未指定（手动断开或IEEE标准原因码通常显示为UNSPECIFIED，这是驱动的正常设计行为）",
                     "1": "内部漫游失败",
@@ -509,7 +522,7 @@ const DISPLAY_MAPPINGS = {
                     "15": "信道切换失败",
                     "16": "用户主动断开"
                 }
-             }
+            }
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_DEL_VIF": {
@@ -528,88 +541,93 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_REG_RULES_RESP": {
-    "friendly_name": "国家码设置 (REG_RULES)",
-    "attributes": {
-        "QCA_WLAN_VENDOR_ATTR_REG_COUNTRY_CODE": { "label": "国家码" },
-        "QCA_WLAN_VENDOR_ATTR_REG_RULES_LIST": { "label": "信道规则列表", "is_list": true },
-        "QCA_WLAN_VENDOR_ATTR_REG_CHANNEL_FREQ": { "label": "频率 (MHz)",
-            "values": {
-                "2412": "信道 1 (2412 MHz)",
-                "2417": "信道 2 (2417 MHz)",
-                "2422": "信道 3 (2422 MHz)",
-                "2427": "信道 4 (2427 MHz)",
-                "2432": "信道 5 (2432 MHz)",
-                "2437": "信道 6 (2437 MHz)",
-                "2442": "信道 7 (2442 MHz)",
-                "2447": "信道 8 (2447 MHz)",
-                "2452": "信道 9 (2452 MHz)",
-                "2457": "信道 10 (2457 MHz)",
-                "2462": "信道 11 (2462 MHz)",
-                "2467": "信道 12 (2467 MHz)",
-                "2472": "信道 13 (2472 MHz)",
-                "2484": "信道 14 (2484 MHz)",
-                "5180": "信道 36 (5180 MHz)",
-                "5200": "信道 40 (5200 MHz)",
-                "5220": "信道 44 (5220 MHz)",
-                "5240": "信道 48 (5240 MHz)",
-                "5260": "信道 52 (5260 MHz)",
-                "5280": "信道 56 (5280 MHz)",
-                "5300": "信道 60 (5300 MHz)",
-                "5320": "信道 64 (5320 MHz)",
-                "5500": "信道 100 (5500 MHz)",
-                "5520": "信道 104 (5520 MHz)",
-                "5540": "信道 108 (5540 MHz)",
-                "5560": "信道 112 (5560 MHz)",
-                "5580": "信道 116 (5580 MHz)",
-                "5600": "信道 120 (5600 MHz)",
-                "5620": "信道 124 (5620 MHz)",
-                "5640": "信道 128 (5640 MHz)",
-                "5660": "信道 132 (5660 MHz)",
-                "5680": "信道 136 (5680 MHz)",
-                "5700": "信道 140 (5700 MHz)",
-                "5720": "信道 144 (5720 MHz)",               
-                "5745": "信道 149 (5745 MHz)",
-                "5765": "信道 153 (5765 MHz)",
-                "5785": "信道 157 (5785 MHz)",
-                "5805": "信道 161 (5805 MHz)",
-                "5825": "信道 165 (5825 MHz)",
-                "5925": "信道 169 (5925 MHz)",
-                "5945": "信道 173 (5945 MHz)",
-                "5965": "信道 177 (5965 MHz)",
-                "5985": "信道 181 (5985 MHz)",
-                "6005": "信道 185 (6005 MHz)"
-         }},
-        "QCA_WLAN_VENDOR_ATTR_REG_CHANNEL_MAX_POWER": { "label": "最大功率 (dBm)" },
-        "QCA_WLAN_VENDOR_ATTR_REG_CHANNEL_FLAGS": { "label": "原始标志位",
-            "values": {
-                "524288": "有效信道 (无特殊限制)",
-                "524296": "DFS",
-                "524304": "NO_IR (被动扫描)",
-                "524312": "DFS + NO_IR (被动扫描)",
-                "524320": "带宽限制: 禁止HT40向下扩展 (NO_HT40MINUS)",
-                "524328": "DFS + 带宽限制: 禁止HT40向下扩展 (NO_HT40MINUS)",
-                "524544": "带宽限制: 禁止HT40向上扩展 (NO_HT40PLUS)",
-                "524560": "NO_IR + 带宽限制: 禁止HT40向上扩展 (NO_HT40PLUS)",
-                "524576": "带宽限制: 禁止HT40双向扩展 (NO_HT40PLUS/MINUS)",
-                "524672": "带宽限制: 禁止80MHz + 禁止HT40向上扩展 (NO_80MHZ + NO_HT40PLUS)",
-                "524688": "NO_IR + 带宽限制: 禁止80MHz + 禁止HT40向上扩展 (NO_80MHZ + NO_HT40PLUS)",
-                "524704": "带宽限制: 禁止80MHz + 禁止HT40双向扩展 (NO_80MHZ + NO_HT40PLUS/MINUS)",
-                "524802": "INDOOR_ONLY + AP模式特殊限制 (TPC（发射功率控制）+强制的DFS)",
-                "524810": "INDOOR_ONLY + DFS + AP模式特殊限制 (TPC（发射功率控制）+强制的DFS)",
-                "524826": "INDOOR_ONLY + DFS + NO_IR + AP模式特殊限制 (TPC（发射功率控制）+强制的DFS)",
-                "524834": "INDOOR_ONLY + AP模式特殊限制 (TPC（发射功率控制）+强制的DFS) + 带宽限制 (NO_HT40MINUS)"
-         }}
+        "friendly_name": "国家码设置 (REG_RULES)",
+        "attributes": {
+            "QCA_WLAN_VENDOR_ATTR_REG_COUNTRY_CODE": { "label": "国家码" },
+            "QCA_WLAN_VENDOR_ATTR_REG_RULES_LIST": { "label": "信道规则列表", "is_list": true },
+            "QCA_WLAN_VENDOR_ATTR_REG_CHANNEL_FREQ": {
+                "label": "频率 (MHz)",
+                "values": {
+                    "2412": "信道 1 (2412 MHz)",
+                    "2417": "信道 2 (2417 MHz)",
+                    "2422": "信道 3 (2422 MHz)",
+                    "2427": "信道 4 (2427 MHz)",
+                    "2432": "信道 5 (2432 MHz)",
+                    "2437": "信道 6 (2437 MHz)",
+                    "2442": "信道 7 (2442 MHz)",
+                    "2447": "信道 8 (2447 MHz)",
+                    "2452": "信道 9 (2452 MHz)",
+                    "2457": "信道 10 (2457 MHz)",
+                    "2462": "信道 11 (2462 MHz)",
+                    "2467": "信道 12 (2467 MHz)",
+                    "2472": "信道 13 (2472 MHz)",
+                    "2484": "信道 14 (2484 MHz)",
+                    "5180": "信道 36 (5180 MHz)",
+                    "5200": "信道 40 (5200 MHz)",
+                    "5220": "信道 44 (5220 MHz)",
+                    "5240": "信道 48 (5240 MHz)",
+                    "5260": "信道 52 (5260 MHz)",
+                    "5280": "信道 56 (5280 MHz)",
+                    "5300": "信道 60 (5300 MHz)",
+                    "5320": "信道 64 (5320 MHz)",
+                    "5500": "信道 100 (5500 MHz)",
+                    "5520": "信道 104 (5520 MHz)",
+                    "5540": "信道 108 (5540 MHz)",
+                    "5560": "信道 112 (5560 MHz)",
+                    "5580": "信道 116 (5580 MHz)",
+                    "5600": "信道 120 (5600 MHz)",
+                    "5620": "信道 124 (5620 MHz)",
+                    "5640": "信道 128 (5640 MHz)",
+                    "5660": "信道 132 (5660 MHz)",
+                    "5680": "信道 136 (5680 MHz)",
+                    "5700": "信道 140 (5700 MHz)",
+                    "5720": "信道 144 (5720 MHz)",
+                    "5745": "信道 149 (5745 MHz)",
+                    "5765": "信道 153 (5765 MHz)",
+                    "5785": "信道 157 (5785 MHz)",
+                    "5805": "信道 161 (5805 MHz)",
+                    "5825": "信道 165 (5825 MHz)",
+                    "5925": "信道 169 (5925 MHz)",
+                    "5945": "信道 173 (5945 MHz)",
+                    "5965": "信道 177 (5965 MHz)",
+                    "5985": "信道 181 (5985 MHz)",
+                    "6005": "信道 185 (6005 MHz)"
+                }
+            },
+            "QCA_WLAN_VENDOR_ATTR_REG_CHANNEL_MAX_POWER": { "label": "最大功率 (dBm)" },
+            "QCA_WLAN_VENDOR_ATTR_REG_CHANNEL_FLAGS": {
+                "label": "原始标志位",
+                "values": {
+                    "524288": "有效信道 (无特殊限制)",
+                    "524296": "DFS",
+                    "524304": "NO_IR (被动扫描)",
+                    "524312": "DFS + NO_IR (被动扫描)",
+                    "524320": "带宽限制: 禁止HT40向下扩展 (NO_HT40MINUS)",
+                    "524328": "DFS + 带宽限制: 禁止HT40向下扩展 (NO_HT40MINUS)",
+                    "524544": "带宽限制: 禁止HT40向上扩展 (NO_HT40PLUS)",
+                    "524560": "NO_IR + 带宽限制: 禁止HT40向上扩展 (NO_HT40PLUS)",
+                    "524576": "带宽限制: 禁止HT40双向扩展 (NO_HT40PLUS/MINUS)",
+                    "524672": "带宽限制: 禁止80MHz + 禁止HT40向上扩展 (NO_80MHZ + NO_HT40PLUS)",
+                    "524688": "NO_IR + 带宽限制: 禁止80MHz + 禁止HT40向上扩展 (NO_80MHZ + NO_HT40PLUS)",
+                    "524704": "带宽限制: 禁止80MHz + 禁止HT40双向扩展 (NO_80MHZ + NO_HT40PLUS/MINUS)",
+                    "524802": "INDOOR_ONLY + AP模式特殊限制 (TPC（发射功率控制）+强制的DFS)",
+                    "524810": "INDOOR_ONLY + DFS + AP模式特殊限制 (TPC（发射功率控制）+强制的DFS)",
+                    "524826": "INDOOR_ONLY + DFS + NO_IR + AP模式特殊限制 (TPC（发射功率控制）+强制的DFS)",
+                    "524834": "INDOOR_ONLY + AP模式特殊限制 (TPC（发射功率控制）+强制的DFS) + 带宽限制 (NO_HT40MINUS)"
+                }
+            }
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_ASSOC_SUCC": {
-        "friendly_name": "终端关联成功 (ASSOC_SUCC)",
+        "friendly_name": "AP模式-终端关联成功 (ASSOC_SUCC)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_IFNAME": { "label": "接口名" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_MAC_ADDR": { "label": "终端MAC地址" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_FREQ": { "label": "频率 (MHz)" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_ID": { "label": "关联ID" },
-            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_CAPS_FLAGS": { "label": "关键能力标志位",
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_CAPS_FLAGS": {
+                "label": "关键能力标志位",
                 "values": {
                     "1": "WMM/QoS 支持",
                     "2": "Wi-Fi 6 (HE) 支持",
@@ -626,14 +644,14 @@ const DISPLAY_MAPPINGS = {
                     "13": "WMM/QoS 支持 + A-MPDU 支持 + 短保护间隔 (SGI) 支持",
                     "14": "Wi-Fi 6 (HE) 支持 + A-MPDU 支持 + 短保护间隔 (SGI) 支持",
                     "15": "WMM/QoS 支持 + Wi-Fi 6 (HE) 支持 + A-MPDU 支持 + 短保护间隔 (SGI) 支持"
-    
+
                 }
-             },
+            },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_ASSOC_REQ_IES": { "label": "关联请求IEs" }
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_ASSOC_FAIL": {
-        "friendly_name": "终端关联失败 (ASSOC_FAIL)",
+        "friendly_name": "AP模式-终端关联失败 (ASSOC_FAIL)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_IFNAME": { "label": "接口名" },
@@ -657,23 +675,23 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_IDLE_SHUTDOWN": {
-    "friendly_name": "设备空闲关机 (IDLE_SHUTDOWN)",
-    "attributes": {
-        "QCA_WLAN_VENDOR_ATTR_IDLE_SHUTDOWN_STATUS": { 
-            "label": "空闲关机状态",
-            "values": {
-                "0": "空闲关机开始",
-                "1": "空闲关机完成(不代表成功)"
+        "friendly_name": "设备空闲关机 (IDLE_SHUTDOWN)",
+        "attributes": {
+            "QCA_WLAN_VENDOR_ATTR_IDLE_SHUTDOWN_STATUS": {
+                "label": "空闲关机状态",
+                "values": {
+                    "0": "空闲关机开始",
+                    "1": "空闲关机完成(不代表成功)"
                 }
             }
         }
     },
-    
+
     "QCA_NL80211_VENDOR_SUBCMD_HANG_REASON": {
         "friendly_name": "系统挂起原因事件 (HANG_REASON)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_HANG_REASON_INVALID": { "label": "无效参数" },
-            "QCA_WLAN_VENDOR_ATTR_HANG_REASON": { 
+            "QCA_WLAN_VENDOR_ATTR_HANG_REASON": {
                 "label": "挂起原因",
                 "values": {
                     "0": "QCA_WLAN_HANG_REASON_UNSPECIFIED (未指定原因)",
