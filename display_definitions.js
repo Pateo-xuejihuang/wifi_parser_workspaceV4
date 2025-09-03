@@ -52,9 +52,9 @@ const DISPLAY_MAPPINGS = {
                 "label": "启动AP结果",
                 "values": {
                     "0": "成功",
-                    "1": "失败"
+                    "-22": "Invalid argument（无效参数）"
                 },
-                "error_values": ["1"]
+                "error_values": ["-22"]
             },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_IFNAME": { "label": "接口名" }
         }
@@ -191,9 +191,9 @@ const DISPLAY_MAPPINGS = {
                 "label": "添加结果",
                 "values": {
                     "0": "成功",
-                    "1": "失败"
+                    "-12": "out of memory"
                 },
-                "error_values": ["1"]
+                "error_values": ["-12"]
             }
         }
     },
@@ -382,7 +382,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_SCAN": {
-        "friendly_name": "调试扫描 (DBG_SCAN)",
+        "friendly_name": "上层触发扫描 (DBG_SCAN)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_SCAN_N_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_SCAN_N_IFNAME": { "label": "接口名" },
@@ -392,9 +392,9 @@ const DISPLAY_MAPPINGS = {
                 "label": "扫描结果",
                 "values": {
                     "0": "成功",
-                    "1": "失败"
+                    "-16": "Device or resource busy"
                 },
-                "error_values": ["1"]
+                "error_values": ["-16"]
             }
         }
     },

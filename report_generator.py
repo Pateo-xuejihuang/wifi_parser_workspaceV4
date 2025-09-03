@@ -457,6 +457,22 @@ def render_tree_to_html(nodes: List[Dict], subcmd_name: str, display_defs: Dict)
     html += '</div>'
     return html
 
+def format_timestamp(timestamp_str: str) -> str:
+    """
+    格式化时间戳，显示为更简洁的日期时间格式。
+    输入: "1970-01-01 00:00:33"
+    输出: "01-01 00:00:33"
+    """
+    try:
+        # 分割日期和时间
+        date_part, time_part = timestamp_str.split(' ')
+        # 提取月-日部分
+        year, month, day = date_part.split('-')
+        return f"{month}-{day} {time_part}"
+    except (ValueError, IndexError):
+        # 如果解析失败，返回原始时间戳
+        return timestamp_str
+
 def has_error_result(event: Dict, display_defs: Dict) -> bool:
     """
     检查事件是否包含错误结果。
@@ -494,7 +510,7 @@ def create_event_item_html(event: Dict, display_defs: Dict) -> str:
     
     header = f"""
     <div class="event-header">
-        <span class="event-timestamp">{event['data_timestamp'].split()[-1]}</span>
+        <span class="event-timestamp">{format_timestamp(event['data_timestamp'])}</span>
         <span class="event-title">{error_indicator}{friendly_name}</span>
     </div>
     """
