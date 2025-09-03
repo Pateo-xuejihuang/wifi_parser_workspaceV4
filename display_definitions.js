@@ -5,7 +5,7 @@
 
 const DISPLAY_MAPPINGS = {
     "QCA_NL80211_VENDOR_SUBCMD_WLAN_MAC_INFO": {
-        "friendly_name": "WLAN MAC 硬件信息",
+        "friendly_name": "WLAN MAC硬件信息 (MAC_INFO)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_MAC_INFO": { "label": "MAC 信息容器" },
             "MAC_ID_CONTAINER_0": { "label": "MAC 0 " },
@@ -27,7 +27,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_START_AP": {
-        "friendly_name": "启动 AP (SoftAP)",
+        "friendly_name": "启动热点 (START_AP)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_CONTAINER": { "label": "配置容器" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_START_AP_FREQ": { "label": "频率 (MHz)" },
@@ -59,7 +59,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_CACHE_STA_INFO": {
-    "friendly_name": "终端设备断开连接 (WIFIDBG_CACHE_STA_INFO)",
+    "friendly_name": "终端断开连接 (CACHE_STA_INFO)",
     "attributes": {
         "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_IFNAME": { "label": "接口名" },
         "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CACHE_STATION_MAC": { "label": "终端 MAC 地址" },
@@ -109,7 +109,7 @@ const DISPLAY_MAPPINGS = {
     }
 },
     "QCA_NL80211_VENDOR_SUBCMD_SCAN_DONE": {
-        "friendly_name": "扫描完成事件",
+        "friendly_name": "扫描完成事件 (SCAN_DONE)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_SCAN_INVALID_PARAM": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_SCAN_IE": { "label": "扫描信息元素 (IE)" },
@@ -151,7 +151,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_ADD_VIF": {
-        "friendly_name": "添加虚拟接口 (VIF)",
+        "friendly_name": "添加虚拟接口 (ADD_VIF)",
         "attributes": {
             "QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_CONTAINER": { "label": "配置容器" },
             "QCA_NL80211_VENDOR_ATTR_WIFIDBG_ADD_VIF_IFNAME": { "label": "接口名" },
@@ -195,7 +195,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_INTEROP_ISSUES_AP": {
-                "friendly_name": "互操作性问题 AP",
+                "friendly_name": "互操作问题AP (INTEROP_AP)",
                 "attributes": {
                     "QCA_WLAN_VENDOR_ATTR_INTEROP_ISSUES_AP_TYPE": { "label": "AP 类型" },
                     "QCA_WLAN_VENDOR_ATTR_INTEROP_ISSUES_AP_LIST": { "label": "AP 列表" },
@@ -203,13 +203,13 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_NAN": {
-        "friendly_name": "邻近感知网络 (NAN) 事件",
+        "friendly_name": "邻近感知网络事件 (NAN)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_NAN_DATA_BLOB": { "label": "NAN 事件原始数据" }
         }
     },
        "QCA_NL80211_VENDOR_SUBCMD_DO_ACS": {
-        "friendly_name": "自动信道选择 (ACS) 结果",
+        "friendly_name": "自动信道选择结果 (ACS)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_ACS_PRIMARY_FREQUENCY": { "label": "主信道频率 (MHz)" },
             "QCA_WLAN_VENDOR_ATTR_ACS_SECONDARY_FREQUENCY": { "label": "次信道频率 (MHz)" },
@@ -246,7 +246,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_TRIGGER_SCAN": {
-        "friendly_name": "触发扫描",
+        "friendly_name": "触发扫描 (TRIGGER_SCAN)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_SCAN_SSIDS": { "label": "SSID 列表" },
             "QCA_WLAN_VENDOR_ATTR_SCAN_FREQUENCIES": { "label": "扫描的信道列表" },
@@ -263,7 +263,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_CHANGE_BSS": {
-        "friendly_name": "切换 BSS (Change BSS)",
+        "friendly_name": "切换BSS (CHANGE_BSS)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_BSS_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_BSS_IFNAME": { "label": "接口名" },
@@ -306,7 +306,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_DEL_STATION": {
-        "friendly_name": "删除终端",
+        "friendly_name": "删除终端 (DEL_STATION)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_STATION_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_STATION_IFNAME": { "label": "接口名" },
@@ -342,7 +342,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_LINK_PROPERTIES": {
-        "friendly_name": "链路属性 (Link Properties)",
+        "friendly_name": "链路属性 (LINK_PROP)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_LINK_PROPERTIES_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_LINK_PROPERTIES_NSS": { "label": "空间流数 (NSS)" },
@@ -371,7 +371,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_SCAN": {
-        "friendly_name": "调试扫描 (WIFIDBG_SCAN)",
+        "friendly_name": "调试扫描 (DBG_SCAN)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_SCAN_N_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_SCAN_N_IFNAME": { "label": "接口名" },
@@ -386,7 +386,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_GET_STATION": {
-        "friendly_name": "获取终端信息 (WIFIDBG_GET_STATION)",
+        "friendly_name": "获取终端信息 (GET_STATION)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_GET_STATION_IFNAME": { "label": "接口名" },
@@ -422,7 +422,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_STOP_AP": {
-        "friendly_name": "停止 AP (WIFIDBG_STOP_AP)",
+        "friendly_name": "停止热点 (STOP_AP)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_STOP_AP_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_STOP_AP_IFNAME": { "label": "接口名" },
@@ -435,7 +435,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_CONNECT": {
-        "friendly_name": "连接 AP (WIFIDBG_CONNECT)",
+        "friendly_name": "连接AP (CONNECT)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CONNECT_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CONNECT_IFNAME": { "label": "接口名" },
@@ -445,7 +445,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_DISCONNECT": {
-        "friendly_name": "断开连接 (WIFIDBG_DISCONNECT)",
+        "friendly_name": "断开连接 (DISCONNECT)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DISCONNECT_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DISCONNECT_IFNAME": { "label": "接口名" },
@@ -465,7 +465,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_BEACON_CHANGE": {
-        "friendly_name": "信标参数变更 (WIFIDBG_BEACON_CHANGE)",
+        "friendly_name": "信标参数变更 (BEACON_CHANGE)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_BEACON_CHANGE_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_BEACON_CHANGE_IFNAME": { "label": "接口名" },
@@ -486,7 +486,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_DRIVER_DISCONNECT_REASON": {
-        "friendly_name": "驱动断开原因 (DRIVER_DISCONNECT_REASON)",
+        "friendly_name": "驱动断开原因 (DISCONNECT_REASON)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_DRIVER_DISCONNECT_REASON_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_GET_STATION_INFO_DRIVER_DISCONNECT_REASON": { "label": "驱动断开原因码",
@@ -513,7 +513,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_DEL_VIF": {
-        "friendly_name": "删除虚拟接口 (WIFIDBG_DEL_VIF)",
+        "friendly_name": "删除虚拟接口 (DEL_VIF)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_VIF_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_DEL_VIF_IFNAME": { "label": "接口名" },
@@ -528,7 +528,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_REG_RULES_RESP": {
-    "friendly_name": "国家码设置 (REG_RULES_RESP)",
+    "friendly_name": "国家码设置 (REG_RULES)",
     "attributes": {
         "QCA_WLAN_VENDOR_ATTR_REG_COUNTRY_CODE": { "label": "国家码" },
         "QCA_WLAN_VENDOR_ATTR_REG_RULES_LIST": { "label": "信道规则列表", "is_list": true },
@@ -602,7 +602,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_ASSOC_SUCC": {
-        "friendly_name": "终端关联成功 (WIFIDBG_ASSOC_SUCC)",
+        "friendly_name": "终端关联成功 (ASSOC_SUCC)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_IFNAME": { "label": "接口名" },
@@ -633,7 +633,7 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_ASSOC_FAIL": {
-        "friendly_name": "终端关联失败 (WIFIDBG_ASSOC_FAIL)",
+        "friendly_name": "终端关联失败 (ASSOC_FAIL)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_INVALID": { "label": "无效参数" },
             "QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_IFNAME": { "label": "接口名" },
@@ -643,14 +643,14 @@ const DISPLAY_MAPPINGS = {
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_DFS_OFFLOAD_CAC_STARTED": {
-        "friendly_name": "DFS 检测启动 (CAC Started)",
+        "friendly_name": "DFS检测启动 (CAC_STARTED)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_DFS_OFFLOAD_CAC_STARTED_INVALID": { "label": "无效参数" },
             "NL80211_ATTR_WIPHY_FREQ": { "label": "中心频率 (MHz)" }
         }
     },
     "QCA_NL80211_VENDOR_SUBCMD_DFS_OFFLOAD_CAC_FINISHED": {
-        "friendly_name": "DFS 检测完成 (CAC Finished)",
+        "friendly_name": "DFS检测完成 (CAC_FINISHED)",
         "attributes": {
             "QCA_WLAN_VENDOR_ATTR_DFS_OFFLOAD_CAC_FINISHED_INVALID": { "label": "无效参数" },
             "NL80211_ATTR_WIPHY_FREQ": { "label": "中心频率 (MHz)" }
@@ -712,6 +712,13 @@ const DISPLAY_MAPPINGS = {
                 }
             },
             "QCA_WLAN_VENDOR_ATTR_HANG_REASON_DATA": { "label": "挂起详细数据 (原始字节)" }
+        }
+    },
+
+    "QCA_NL80211_VENDOR_SUBCMD_DRIVER_READY": {
+        "friendly_name": "驱动程序准备就绪 (DRIVER_READY)",
+        "attributes": {
+
         }
     }
 }
