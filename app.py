@@ -239,51 +239,9 @@ def process_file(uploaded_file):
                     use_container_width=True
                 )
             
-            # 显示解析统计信息
-            show_parsing_stats(temp_json_path)
-            
     except Exception as e:
         st.error(f"处理过程中发生错误: {str(e)}")
         st.exception(e)
-
-def show_parsing_stats(json_path):
-    """显示解析统计信息"""
-    try:
-        import json
-        with open(json_path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-        
-        st.header("📈 解析统计")
-        
-        # 计算统计信息
-        total_events = len(data)
-        
-        # 按类型统计
-        event_types = {}
-        for event in data:
-            subcmd = event.get('subcmd', 'unknown')
-            event_types[subcmd] = event_types.get(subcmd, 0) + 1
-        
-        col1, col2, col3 = st.columns(3)
-        
-        with col1:
-            st.metric("总事件数", total_events)
-        
-        with col2:
-            st.metric("事件类型数", len(event_types))
-        
-        with col3:
-            if event_types:
-                most_common = max(event_types.items(), key=lambda x: x[1])
-                st.metric("最频繁事件", f"{most_common[0]} ({most_common[1]}次)")
-        
-        # 显示事件类型分布
-        if event_types:
-            st.subheader("📊 事件类型分布")
-            st.bar_chart(event_types)
-            
-    except Exception as e:
-        st.warning(f"无法显示统计信息: {str(e)}")
 
 if __name__ == "__main__":
     main()
