@@ -77,13 +77,6 @@ def main():
         - ✅ `wifidebug(2)`
         - ✅ `wifi_debug.log`
         """)
-        
-        st.header("🔧 项目信息")
-        st.markdown("""
-        **技术栈**: Python + Streamlit
-        **架构**: 数据驱动设计
-        **适用平台**: 高通车载平台 QCA8397
-        """)
     
     # 主界面
     col1, col2 = st.columns([2, 1])
