@@ -69,9 +69,6 @@ def main():
         **支持的文件格式**:
         - `wifidebug` (无扩展名)
         - `wifidebug(1)`, `wifidebug(2)` 等编号文件
-        - `cnss_fw_logs_current.txt` (固件日志)
-        - `host_driver_logs_current.txt` (驱动日志)
-        - `.txt`, `.log`, `.debug` 等格式文件
         
         **常见文件示例**:
         - ✅ `wifidebug`

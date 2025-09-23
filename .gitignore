@@ -9,6 +9,8 @@
 !README.md
 !examples/
 !examples/**
+!app.py
+!requirements.txt
 
 # 忽略Python编译文件和缓存
 __pycache__/
