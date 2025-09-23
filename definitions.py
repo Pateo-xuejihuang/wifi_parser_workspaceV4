@@ -414,5 +414,38 @@ VENDOR_SUBCMD_ENUMS = {
         "initial_rule": "attrs",
         "attrs": {
         }
+    },
+
+    51: {
+    "name": "QCA_NL80211_VENDOR_SUBCMD_KEY_MGMT_ROAM_AUTH",
+    "initial_rule": "attrs",
+    "attrs": {
+        0:  {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_INVALID', 'type': 'u32'},
+        1:  {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_BSSID', 'type': 'mac'},
+        2:  {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_REQ_IE', 'type': 'hex'},
+        3:  {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_RESP_IE', 'type': 'hex'},
+        4:  {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_AUTHORIZED', 'type': 'u8'},
+        5:  {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_KEY_REPLAY_CTR', 'type': 'hex'},
+        6:  {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_PTK_KCK', 'type': 'hex'},
+        7:  {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_PTK_KEK', 'type': 'hex'},
+        8:  {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_SUBNET_STATUS', 'type': 'u8'},
+        9:  {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_STATUS', 'type': 'u16'},
+        10: {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_RETAIN_CONNECTION', 'type': 'u8'},
+        11: {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_PMK', 'type': 'hex'},
+        12: {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_PMKID', 'type': 'hex'},
+        13: {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_FILS_ERP_NEXT_SEQ_NUM', 'type': 'u16'},
+        14: {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_REASON', 'type': 'u16'},
+        15: {'name': 'QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_MLO_LINKS', 'type': 'nested'}
+        }
+    },
+
+    65027: {
+        "name": "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_CHANGE_IFACE",
+        "initial_rule": "attrs",
+        "attrs": {
+            1: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_IFACE_IFNAME', 'type': 'string'},
+            2: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_IFACE_TYPE', 'type': 'u32'},
+            3: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_IFACE_RESULT', 'type': "s32" }
+        }
     }
 }

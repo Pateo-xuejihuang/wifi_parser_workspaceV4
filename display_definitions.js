@@ -52,7 +52,7 @@ const DISPLAY_MAPPINGS = {
                 "label": "启动AP结果",
                 "values": {
                     "0": "成功",
-                    "-22": "Invalid argument（无效参数）"
+                    "-22": "Invalid argument"
                 },
                 "error_values": ["-22"]
             },
@@ -191,7 +191,7 @@ const DISPLAY_MAPPINGS = {
                 "label": "添加结果",
                 "values": {
                     "0": "成功",
-                    "-12": "out of memory"
+                    "-12": "Out of memory"
                 },
                 "error_values": ["-12"]
             }
@@ -746,6 +746,46 @@ const DISPLAY_MAPPINGS = {
         "friendly_name": "驱动程序准备就绪 (DRIVER_READY)",
         "attributes": {
 
+        }
+    },
+
+    "QCA_NL80211_VENDOR_SUBCMD_KEY_MGMT_ROAM_AUTH": {
+        "friendly_name": "漫游认证 (ROAM_AUTH)",
+        "attributes": {
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_INVALID": { "label": "无效参数" },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_BSSID": { "label": "目标AP BSSID/MLD地址" },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_REQ_IE": { "label": "请求IE (AssocReq IEs)" },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_RESP_IE": { "label": "响应IE (AssocResp IEs)" },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_AUTHORIZED": {
+                "label": "是否授权",
+                "values": {
+                    "0": "未授权",
+                    "1": "已授权"
+                }
+            },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_KEY_REPLAY_CTR": { "label": "重试计数器 (Replay Counter)" },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_PTK_KCK": { "label": "PTK KCK" },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_PTK_KEK": { "label": "PTK KEK" },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_SUBNET_STATUS": {
+                "label": "子网状态",
+                "values": {
+                    "0": "未知/不变",
+                    "1": "子网变化"
+                }
+            },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_STATUS": { "label": "Roam 状态码" },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_RETAIN_CONNECTION": {
+                "label": "是否保持连接",
+                "values": {
+                    "0": "否",
+                    "1": "是"
+                }
+            },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_PMK": { "label": "PMK" },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_PMKID": { "label": "PMKID" },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_FILS_ERP_NEXT_SEQ_NUM": { "label": "FILS ERP 下一个序列号" },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_REASON": { "label": "Roam 原因码" },
+            "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_MLO_LINKS": { "label": "MLO 链路信息 (嵌套属性)" }
         }
     }
 }
