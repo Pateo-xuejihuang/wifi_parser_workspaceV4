@@ -368,7 +368,7 @@ VENDOR_SUBCMD_ENUMS = {
             3: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_FREQ', 'type': 'u32'},
             4: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_ID', 'type': 'u32'},
             5: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_CAPS_FLAGS', 'type': 'u32'},
-            6: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_ASSOC_REQ_IES', 'type': 'assoc_req_ies'},
+            6: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_SUCC_ASSOC_REQ_IES', "type": "assoc_req_ies"},
         }
     },
     65042: {
@@ -379,7 +379,7 @@ VENDOR_SUBCMD_ENUMS = {
             1: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_IFNAME', 'type': 'string'},
             2: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_MAC_ADDR', 'type': 'mac_address'},
             3: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_REASON', 'type': 'u32'},
-            4: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_REQ_IES', 'type': 'assoc_req_ies'},
+            4: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_ASSOC_FAIL_REQ_IES', "type": "assoc_req_ies"},
         }
     },
     56:{
@@ -443,6 +443,7 @@ VENDOR_SUBCMD_ENUMS = {
         "name": "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_CHANGE_IFACE",
         "initial_rule": "attrs",
         "attrs": {
+            0: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_IFACE_INVALID', 'type': 'u32'},
             1: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_IFACE_IFNAME', 'type': 'string'},
             2: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_IFACE_TYPE', 'type': 'u32'},
             3: {'name': 'QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_IFACE_RESULT', 'type': "s32" }

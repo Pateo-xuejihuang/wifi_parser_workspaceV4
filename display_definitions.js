@@ -787,5 +787,38 @@ const DISPLAY_MAPPINGS = {
             "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_REASON": { "label": "Roam 原因码" },
             "QCA_WLAN_VENDOR_ATTR_ROAM_AUTH_MLO_LINKS": { "label": "MLO 链路信息 (嵌套属性)" }
         }
+    },
+    "QCA_NL80211_VENDOR_SUBCMD_WIFIDBG_CHANGE_IFACE": {
+        "friendly_name": "变更接口模式 (CHANGE_IFACE)",
+        "attributes": {
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_IFACE_INVALID": { "label": "无效参数" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_IFACE_IFNAME": { "label": "接口名" },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_IFACE_TYPE": {
+                "label": "接口类型",
+                "values": {
+                    "0": "未指定",
+                    "1": "Ad-Hoc 接口",
+                    "2": "STA 接口",
+                    "3": "AP 接口",
+                    "4": "AP VLAN 接口",
+                    "5": "WDS 接口",
+                    "6": "监控接口",
+                    "7": "Mesh Point 接口",
+                    "8": "P2P Client 接口",
+                    "9": "P2P GO 接口",
+                    "10": "P2P Device 接口",
+                    "11": "OCB 接口",
+                    "12": "NAN 接口"
+                }
+            },
+            "QCA_WLAN_VENDOR_ATTR_WIFIDBG_CHANGE_IFACE_RESULT": {
+                "label": "变更结果",
+                "values": {
+                    "0": "成功",
+                    "1": "失败"
+                },
+                "error_values": ["1"]
+            }
+        }
     }
 }
